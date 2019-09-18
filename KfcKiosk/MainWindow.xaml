@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0">
-                <!--<Image Source="./public/kfc-logo1.png" Width="100" Height="100"/>-->
+                <Image Source="./Assets/Public/KFC-logo1.png" Width="100" Height="100"/>
                 <TextBlock FontSize="30">현재 시각 : </TextBlock>
                 <TextBlock x:Name="CurrentTime"></TextBlock>
             </TextBlock>
