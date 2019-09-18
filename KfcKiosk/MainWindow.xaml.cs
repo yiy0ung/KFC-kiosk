@@ -33,6 +33,7 @@ namespace KfcKiosk
 
         private void LoadData()
         {
+            App.seatData.Load();
             App.foodData.Load();
         }
     }
