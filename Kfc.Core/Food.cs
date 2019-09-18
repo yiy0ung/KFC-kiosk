@@ -12,7 +12,7 @@ namespace Kfc.Core
         public int Price { get; set; } // 가격
         public int Count { get; set; } // 수량
         public int Kcal { get; set; } // 열량
-        public int ImgPath { get; set; }
+        public string ImgPath { get; set; }
         public ECategory Category { get; set; }
     }
 }
