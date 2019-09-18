@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KfcKiosk.common
+namespace Kfc.Core
 {
     public enum ECategory
     {
-        BoxMenu,
-        SetMenu,
-        Chicken,
+        Chickin,
         Burger,
-        Snack,
         Drink,
+        Snack,
         Max,
     }
 }

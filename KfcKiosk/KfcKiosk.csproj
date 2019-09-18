@@ -63,15 +63,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="common\ECategory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Menu.cs" />
-    <Compile Include="model\MenuData.cs" />
+    <Compile Include="Model\FoodDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,10 +95,41 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="public\KFC-logo1.png" />
-    <Resource Include="public\kfc-logo2.jpg" />
+    <ProjectReference Include="..\Kfc.Core\Kfc.Core.csproj">
+      <Project>{66356a37-ee39-49d5-8901-a30b369bbf53}</Project>
+      <Name>Kfc.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assests\Pulbic\KFC-logo1.png" />
+    <Resource Include="Assests\Pulbic\kfc-logo2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assests\Drink\beer.png" />
+    <Resource Include="Assests\Drink\coke.png" />
+    <Resource Include="Assests\Drink\hotChoco.png" />
+    <Resource Include="Assests\Drink\milkTea.png" />
+    <Resource Include="Assests\Drink\orangeJuice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assests\Chickin\blackLabelChickin-8p.png" />
+    <Resource Include="Assests\Chickin\godSauceChickin-8p.png" />
+    <Resource Include="Assests\Chickin\hotChiliChickin-8p.png" />
+    <Resource Include="Assests\Chickin\hotCrispyChickin-9p.png" />
+    <Resource Include="Assests\Chickin\originalChickin-9p.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assests\Snack\CheeseStick.png" />
+    <Resource Include="Assests\Snack\chickinNugget-6p.png" />
+    <Resource Include="Assests\Snack\FrenchFry.png" />
+    <Resource Include="Assests\Snack\hotWing-4p.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assests\Snack\icecream.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assests\Burger\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
