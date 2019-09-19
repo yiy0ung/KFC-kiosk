@@ -1,4 +1,4 @@
-﻿using KfcKiosk.Model;
+using KfcKiosk.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +14,7 @@ namespace KfcKiosk
     /// </summary>
     public partial class App : Application
     {
+        public static SeatDataSource seatData = new SeatDataSource();
         public static FoodDataSource foodData = new FoodDataSource();
     }
 }

@@ -6,27 +6,52 @@
         xmlns:local="clr-namespace:KfcKiosk"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1400">
+    <Window.Resources>
+        <Style x:Key="MyCusBtn" TargetType="Button">
+            <Setter Property="FontSize" Value="18px"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="Background" Value="#00F0F8FF"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="BorderBrush" Value="#fff"/>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Background" Value="#fff"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="#de101d">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0">
-                <!--<Image Source="./public/kfc-logo1.png" Width="100" Height="100"/>-->
-                <TextBlock FontSize="30">현재 시각 : </TextBlock>
+            <Grid Grid.Column="0" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Image Source="./Assets/Public/KFC-logo1.png" Width="100" Height="100" Margin="30,0,0,0"/>
+                <TextBlock Grid.Column="1" Margin="20,0,0,0" Foreground="White" FontSize="30" VerticalAlignment="Center" >현재 시각 : </TextBlock>
                 <TextBlock x:Name="CurrentTime"></TextBlock>
-            </TextBlock>
+            </Grid>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Width="90" Height="40" Margin="0,0,20,0">결제하기</Button>
-                <Button Width="90" Height="40" Margin="0,0,20,0">통계보기</Button>
+                <Button Style="{StaticResource MyCusBtn}">결제하기</Button>
+                <Button Style="{StaticResource MyCusBtn}">통계보기</Button>
             </StackPanel>
         </Grid>
 

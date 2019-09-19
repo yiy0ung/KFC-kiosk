@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Kfc.Core
 {
-    class Seat
+    public class Seat
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public int floor { get; set; }
         public List<Food> lstFood { get; set; }
     }
 }

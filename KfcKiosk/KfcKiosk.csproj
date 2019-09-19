@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataSource\SeatDataSource.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -73,10 +74,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\FoodDataSource.cs" />
     <Compile Include="PaymentWindow.xaml.cs">
       <DependentUpon>PaymentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataSource\FoodDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,44 +110,44 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assests\Pulbic\KFC-logo1.png" />
-    <Resource Include="Assests\Pulbic\kfc-logo2.jpg" />
+    <Resource Include="Assets\Public\KFC-logo1.png" />
+    <Resource Include="Assets\Public\kfc-logo2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assests\Drink\beer.png" />
-    <Resource Include="Assests\Drink\coke.png" />
-    <Resource Include="Assests\Drink\hotChoco.png" />
-    <Resource Include="Assests\Drink\milkTea.png" />
-    <Resource Include="Assests\Drink\orangeJuice.png" />
+    <Resource Include="Assets\Drink\beer.png" />
+    <Resource Include="Assets\Drink\coke.png" />
+    <Resource Include="Assets\Drink\hotChoco.png" />
+    <Resource Include="Assets\Drink\milkTea.png" />
+    <Resource Include="Assets\Drink\orangeJuice.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assests\Chickin\blackLabelChickin-8p.png" />
-    <Resource Include="Assests\Chickin\godSauceChickin-8p.png" />
-    <Resource Include="Assests\Chickin\hotChiliChickin-8p.png" />
-    <Resource Include="Assests\Chickin\hotCrispyChickin-9p.png" />
-    <Resource Include="Assests\Chickin\originalChickin-9p.png" />
+    <Resource Include="Assets\Chickin\blackLabelChickin-8p.png" />
+    <Resource Include="Assets\Chickin\godSauceChickin-8p.png" />
+    <Resource Include="Assets\Chickin\hotChiliChickin-8p.png" />
+    <Resource Include="Assets\Chickin\hotCrispyChickin-9p.png" />
+    <Resource Include="Assets\Chickin\originalChickin-9p.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assests\Snack\CheeseStick.png" />
-    <Resource Include="Assests\Snack\chickinNugget-6p.png" />
-    <Resource Include="Assests\Snack\FrenchFry.png" />
-    <Resource Include="Assests\Snack\hotWing-4p.png" />
+    <Resource Include="Assets\Snack\CheeseStick.png" />
+    <Resource Include="Assets\Snack\chickinNugget-6p.png" />
+    <Resource Include="Assets\Snack\FrenchFry.png" />
+    <Resource Include="Assets\Snack\hotWing-4p.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assests\Snack\icecream.png" />
+    <Resource Include="Assets\Snack\icecream.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Assests\Burger\블랙라벨에그타워버거.png" />
-    <Resource Include="Assests\Burger\블랙라벨클래식버거.png" />
-    <Resource Include="Assests\Burger\오리지널타워버거.png" />
-    <Resource Include="Assests\Burger\징거더블다운맥스.png" />
-    <Resource Include="Assests\Burger\징거버거.png" />
-    <Resource Include="Assests\Burger\치킨불고기버거.png" />
-    <Resource Include="Assests\Burger\타워버거.png" />
-    <Resource Include="Assests\Burger\트리플리치오리지널버거.png" />
-    <Resource Include="Assests\Burger\트위스터.png" />
-    <Resource Include="Assests\Burger\핫치즈징거버거.png" />
+    <Resource Include="Assets\Burger\블랙라벨에그타워버거.png" />
+    <Resource Include="Assets\Burger\블랙라벨클래식버거.png" />
+    <Resource Include="Assets\Burger\오리지널타워버거.png" />
+    <Resource Include="Assets\Burger\징거더블다운맥스.png" />
+    <Resource Include="Assets\Burger\징거버거.png" />
+    <Resource Include="Assets\Burger\치킨불고기버거.png" />
+    <Resource Include="Assets\Burger\타워버거.png" />
+    <Resource Include="Assets\Burger\트리플리치오리지널버거.png" />
+    <Resource Include="Assets\Burger\트위스터.png" />
+    <Resource Include="Assets\Burger\핫치즈징거버거.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
