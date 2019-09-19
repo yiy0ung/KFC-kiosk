@@ -23,5 +23,23 @@ namespace KfcKiosk
         {
             InitializeComponent();
         }
+
+        private void Prev_Window(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            App.Current.MainWindow = main;
+            this.Close();
+            main.Show();
+        }
+
+        private void Burger_Click(object sender, RoutedEventArgs e)
+        {
+            ShowBurger();
+        }
+
+        private void ShowBurger()
+        {
+            
+        }
     }
 }
