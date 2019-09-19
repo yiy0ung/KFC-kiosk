@@ -1,4 +1,4 @@
-﻿using KfcKiosk.DataSource;
+using KfcKiosk.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
