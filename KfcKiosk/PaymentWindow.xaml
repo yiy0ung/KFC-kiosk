@@ -14,6 +14,19 @@
             <Setter Property="Padding" Value="10"/>
             <Setter Property="Margin" Value="1"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="categoryItem" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="#de101d"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style x:Key="foodMenu" TargetType="Button">
@@ -36,6 +49,14 @@
             <Setter Property="Padding" Value="5"/>
         </Style>
 
+        <Style x:Key="totalAmount" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+
         <Style x:Key="countBtn" TargetType="Button">
             <Setter Property="Background" Value="#de101d"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -45,15 +66,6 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
-        <Style x:Key="totalAmount" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0 0 10 0"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="24"/>
-            
-        </Style>
-        
     </Window.Resources>
     
     <Grid>
@@ -85,7 +97,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"> 
-            <TextBlock Text="최근 주문 시간 "/>
+            <TextBlock Text="최근 주문 시간 " FontWeight="Bold"/>
             <TextBlock Text="17:20" HorizontalAlignment="Right"/>
         </StackPanel>
 
@@ -94,65 +106,33 @@
             <Button Style="{StaticResource categoryMenu}" Content="전체 취소"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" x:Name="categoryView" Margin="0 10 0 0">
-            <Button Content="버거" Click="Burger_Click" Style="{StaticResource categoryMenu}"/>
-            <Button Content="치킨" Style="{StaticResource categoryMenu}"/>
-            <Button Content="음료" Style="{StaticResource categoryMenu}"/>
-            <Button Content="스낵류" Style="{StaticResource categoryMenu}"/>
-        </StackPanel>
+        <ListView x:Name="categoryList" SelectionChanged="CategoryList_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Margin="0 10 0 0" BorderThickness="0">
+            <ListViewItem Content="All" Style="{StaticResource categoryItem}"/>
+            <ListViewItem Content="Burger" Style="{StaticResource categoryItem}"/>
+            <ListViewItem Content="Chickin" Style="{StaticResource categoryItem}"/>
+            <ListViewItem Content="Drink" Style="{StaticResource categoryItem}"/>
+            <ListViewItem Content="Snack" Style="{StaticResource categoryItem}"/>
+        </ListView>
         
-        <ListView Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{StaticResource menuPanel}">
-            <WrapPanel ItemHeight="170" ItemWidth="170">
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨클래식버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨클래식버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="8900" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Style="{StaticResource foodMenu}">
-                    <StackPanel>
-                        <Image Source="Assets/Burger/블랙라벨에그타워버거.png" Margin="0 0 0 10"/>
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </WrapPanel>
+        <ListView x:Name="menuList"  Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{StaticResource menuPanel}">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ItemHeight="170" ItemWidth="170"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource foodMenu}">
+                        <StackPanel>
+                            <Image Source="{Binding ImgPath}" Margin="0 0 0 10"/>
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Price}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="0 10 0 0">
@@ -174,23 +154,23 @@
             </Grid>
 
             <ListView Grid.Row="1" BorderThickness="0" Background="#ffc547">
-                
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="180"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="80"/>
-                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
-                        <TextBlock Text="7700" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
-                            <TextBlock Text="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
-                            <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}"/>
-                            <Button Content="-" Style="{StaticResource countBtn}"/>
-                        </StackPanel>
-                    </Grid>
+                    <TextBlock Text="블랙라벨에그타워버거" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+                    <TextBlock Text="7700" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
+                        <TextBlock Text="1" Margin="0 0 10 0" VerticalAlignment="Center"/>
+                        <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}"/>
+                        <Button Content="-" Style="{StaticResource countBtn}"/>
+                    </StackPanel>
+                </Grid>
                 
                 <Grid>
                     <Grid.ColumnDefinitions>
