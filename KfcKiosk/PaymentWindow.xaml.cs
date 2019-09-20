@@ -20,6 +20,8 @@ namespace KfcKiosk
     /// </summary>
     public partial class PaymentWindow : Window
     {
+        List<Food> selectedMenuList = new List<Food>();
+
         public PaymentWindow()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace KfcKiosk
         {
             App.foodData.Load();
             LoadMenu("All");
+            ResetTime();
         }
 
         private void Prev_Window(object sender, RoutedEventArgs e)
@@ -42,8 +45,7 @@ namespace KfcKiosk
 
         private void LoadMenu(string selectedCategory)
         {
-            //Console.WriteLine(selectedCategory);
-            if (selectedCategory == null) return;
+            if (selectedCategory == null) selectedCategory = "All";
 
             switch(selectedCategory)
             {
@@ -87,9 +89,32 @@ namespace KfcKiosk
         private void CategoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string selectedCategory = ((ListBoxItem)(categoryList.SelectedItem)).Content.ToString();
-
-            Console.WriteLine(selectedCategory);
             LoadMenu(selectedCategory);
+        }
+
+        private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Food selectedMenu = ((Food)menuList.SelectedItem);
+
+            if (selectedMenu == null) return;
+
+            ResetTime();
+
+            //선택된 메뉴가 오더리스트에 포함되어있지 않다면
+            if (!(selectedMenuList.Contains(selectedMenu))) selectedMenuList.Add(selectedMenu);
+
+            foreach (Food menu in selectedMenuList)
+            {
+                Console.WriteLine(menu.Name);
+            }
+
+            orderedList.ItemsSource = selectedMenuList;
+            menuList.SelectedItem = null;
+        }
+
+        private void ResetTime()
+        {
+            leastTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
         }
     }
 }

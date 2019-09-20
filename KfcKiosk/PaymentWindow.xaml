@@ -29,11 +29,9 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
-        <Style x:Key="foodMenu" TargetType="Button">
+        <Style x:Key="foodMenu" TargetType="StackPanel">
             <Setter Property="Background" Value="#de101d" />
-            <Setter Property="Foreground" Value="White" />
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
         <Style x:Key="tableHead" TargetType="TextBlock">
@@ -47,6 +45,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="5"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         </Style>
 
         <Style x:Key="totalAmount" TargetType="TextBlock">
@@ -98,7 +97,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"> 
             <TextBlock Text="최근 주문 시간 " FontWeight="Bold"/>
-            <TextBlock Text="17:20" HorizontalAlignment="Right"/>
+            <TextBlock x:Name="leastTime" HorizontalAlignment="Right"/>
         </StackPanel>
 
 
@@ -113,8 +112,8 @@
             <ListViewItem Content="Drink" Style="{StaticResource categoryItem}"/>
             <ListViewItem Content="Snack" Style="{StaticResource categoryItem}"/>
         </ListView>
-        
-        <ListView x:Name="menuList"  Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{StaticResource menuPanel}">
+
+        <ListView SelectionChanged="MenuList_SelectionChanged" x:Name="menuList"  Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Style="{StaticResource menuPanel}">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -124,13 +123,11 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button Style="{StaticResource foodMenu}">
-                        <StackPanel>
-                            <Image Source="{Binding ImgPath}" Margin="0 0 0 10"/>
-                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Price}" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
+                    <StackPanel Style="{StaticResource foodMenu}">
+                        <Image Source="{Binding ImgPath}" Margin="0 0 0 10"/>
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" Foreground="White"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -153,8 +150,32 @@
                 <TextBlock Text="수량" Grid.Column="2" Style="{StaticResource tableHead}"/>
             </Grid>
 
-            <ListView Grid.Row="1" BorderThickness="0" Background="#ffc547">
+            <ListView x:Name="orderedList" Grid.Row="1" BorderThickness="0" Background="#ffc547">
 
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+                            <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
+                                <TextBlock Text="{Binding Count}"  Margin="0 0 10 0" VerticalAlignment="Center"/>
+                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}"/>
+                                <Button Content="-" Style="{StaticResource countBtn}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+                
+                <!--
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180"/>
@@ -172,6 +193,7 @@
                     </StackPanel>
                 </Grid>
                 
+                
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180"/>
@@ -188,6 +210,8 @@
                         <Button Content="-" Style="{StaticResource countBtn}"/>
                     </StackPanel>
                 </Grid>
+                -->
+                
             </ListView>
         </Grid>
 
