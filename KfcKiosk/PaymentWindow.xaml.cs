@@ -118,7 +118,6 @@ namespace KfcKiosk
                 orderList.Add(selectedMenu);
 
                 Total += selectedMenu.Price;
-                Console.WriteLine(Total);
             }
 
             orderedList.ItemsSource = orderList;
@@ -132,14 +131,32 @@ namespace KfcKiosk
             leastTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void Count_Click(object sender, RoutedEventArgs e)
         {
+            UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent)as FrameworkElement).Parent)as Grid).Children;
+            string foodName = (parentTextBlock[0] as TextBlock).Text;
+            string content = (sender as Button).Content.ToString();
+            
+            foreach(Food menu in orderList)
+            {
+                if(menu.Name.Equals(foodName))
+                {
+                    if (content.Equals("+"))
+                    {
+                        menu.Count++;
+                        Total += menu.Price;
+                    }
+                    else if (content.Equals("-")) {
 
-        }
+                        menu.Count--;
+                        Total -= menu.Price;
 
-        private void Minus_Click(object sender, RoutedEventArgs e)
-        {
-
+                        if (menu.Count < 1) orderList.Remove(menu);
+                    }
+                    break;
+                }
+            }
+            orderedList.Items.Refresh();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -151,6 +168,7 @@ namespace KfcKiosk
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             orderList.Clear();
+            Total = 0;
             orderedList.Items.Refresh();
         }
     }

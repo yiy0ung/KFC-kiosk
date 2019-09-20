@@ -155,7 +155,7 @@
        
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Background="White">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="180"/>
                                 <ColumnDefinition Width="70"/>
@@ -167,8 +167,8 @@
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
                                 <TextBlock Text="{Binding Count}"  Margin="0 0 10 0" VerticalAlignment="Center"/>
-                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Add_Click"/>
-                                <Button Content="-" Style="{StaticResource countBtn}" Click="Minus_Click"/>
+                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Count_Click"/>
+                                <Button Content="-" Style="{StaticResource countBtn}" Click="Count_Click"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
