@@ -20,7 +20,7 @@ namespace KfcKiosk
     /// </summary>
     public partial class PaymentWindow : Window
     {
-        List<Food> selectedMenuList = new List<Food>();
+        private List<Food> orderList = new List<Food>();
 
         public PaymentWindow()
         {
@@ -100,15 +100,15 @@ namespace KfcKiosk
 
             ResetTime();
 
-            //선택된 메뉴가 오더리스트에 포함되어있지 않다면
-            if (!(selectedMenuList.Contains(selectedMenu))) selectedMenuList.Add(selectedMenu);
-
-            foreach (Food menu in selectedMenuList)
+            if (!(orderList.Contains(selectedMenu)))
             {
-                Console.WriteLine(menu.Name);
+                selectedMenu.Count = 1;
+                orderList.Add(selectedMenu);
             }
 
-            orderedList.ItemsSource = selectedMenuList;
+            orderedList.ItemsSource = orderList;
+            orderedList.Items.Refresh();
+
             menuList.SelectedItem = null;
         }
 
