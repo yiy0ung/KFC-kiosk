@@ -102,7 +102,7 @@
 
 
         <StackPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Style="{StaticResource categoryMenu}" Content="전체 취소"/>
+            <Button Style="{StaticResource categoryMenu}" Content="전체 취소" Click="Clear_Click"/>
         </StackPanel>
 
         <ListView x:Name="categoryList" SelectionChanged="CategoryList_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Margin="0 10 0 0" BorderThickness="0">
@@ -167,8 +167,8 @@
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
                                 <TextBlock Text="{Binding Count}"  Margin="0 0 10 0" VerticalAlignment="Center"/>
-                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}"/>
-                                <Button Content="-" Style="{StaticResource countBtn}"/>
+                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Add_Click"/>
+                                <Button Content="-" Style="{StaticResource countBtn}" Click="Minus_Click"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -177,6 +177,6 @@
             </ListView>
         </Grid>
 
-        <TextBlock Grid.Row="4" Grid.Column="3" Text="18,000" Style="{StaticResource totalAmount}"/>
+        <TextBlock x:Name="totalPrice" Text="{Binding Total}" Grid.Row="4" Grid.Column="3" Style="{StaticResource totalAmount}"/>
     </Grid>
 </Window>

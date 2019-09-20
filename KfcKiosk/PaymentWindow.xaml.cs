@@ -1,6 +1,7 @@
 ﻿using Kfc.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,19 @@ namespace KfcKiosk
     /// <summary>
     /// Interaction logic for PaymentWindow.xaml
     /// </summary>
-    public partial class PaymentWindow : Window
+    public partial class PaymentWindow : Window, INotifyPropertyChanged
     {
         private List<Food> orderList = new List<Food>();
+
+        private int total = 0;
+        public int Total {
+            get => total;
+            set
+            {
+                total = value;
+                NotifyPropertyChanged(nameof(Total));
+            }
+        }
 
         public PaymentWindow()
         {
@@ -33,6 +44,7 @@ namespace KfcKiosk
             App.foodData.Load();
             LoadMenu("All");
             ResetTime();
+            totalPrice.DataContext = this;
         }
 
         private void Prev_Window(object sender, RoutedEventArgs e)
@@ -104,6 +116,9 @@ namespace KfcKiosk
             {
                 selectedMenu.Count = 1;
                 orderList.Add(selectedMenu);
+
+                Total += selectedMenu.Price;
+                Console.WriteLine(Total);
             }
 
             orderedList.ItemsSource = orderList;
@@ -115,6 +130,28 @@ namespace KfcKiosk
         private void ResetTime()
         {
             leastTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            orderList.Clear();
+            orderedList.Items.Refresh();
         }
     }
 }
