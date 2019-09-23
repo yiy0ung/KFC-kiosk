@@ -137,7 +137,9 @@
   <ItemGroup>
     <Resource Include="Assets\Snack\icecream.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Public\Arrow.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Burger\블랙라벨에그타워버거.png" />
     <Resource Include="Assets\Burger\블랙라벨클래식버거.png" />
