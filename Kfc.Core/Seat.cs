@@ -8,8 +8,9 @@ namespace Kfc.Core
 {
     public class Seat
     {
-        public int Id { get; set; }
-        public int floor { get; set; }
+        public string Id { get; set; }
+        public int FloorIdx { get; set; }
+        public string OrderInfo { get; set; }
         public List<Food> lstFood { get; set; }
     }
 }

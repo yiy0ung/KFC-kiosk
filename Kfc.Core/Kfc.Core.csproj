@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ECategory.cs" />
+    <Compile Include="Floor.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Seat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

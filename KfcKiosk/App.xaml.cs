@@ -14,6 +14,7 @@ namespace KfcKiosk
     /// </summary>
     public partial class App : Application
     {
+        public static FloorDataSource floorData = new FloorDataSource();
         public static SeatDataSource seatData = new SeatDataSource();
         public static FoodDataSource foodData = new FoodDataSource();
     }
