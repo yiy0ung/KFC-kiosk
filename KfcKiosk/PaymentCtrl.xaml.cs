@@ -12,19 +12,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace KfcKiosk
 {
     /// <summary>
-    /// Interaction logic for PaymentWindow.xaml
+    /// Interaction logic for PaymentCtrl.xaml
     /// </summary>
-    public class PaymentCtrl : UserControl, INotifyPropertyChanged
+    public partial class PaymentCtrl : UserControl, INotifyPropertyChanged
     {
         private List<Food> orderList = new List<Food>();
 
         private int total = 0;
-        public int Total {
+        public int Total
+        {
             get => total;
             set
             {
@@ -59,7 +61,7 @@ namespace KfcKiosk
         {
             if (selectedCategory == null) selectedCategory = "All";
 
-            switch(selectedCategory)
+            switch (selectedCategory)
             {
                 case "Burger":
                     SetMenu("Burger");
@@ -92,7 +94,7 @@ namespace KfcKiosk
                 if (food.Category.ToString().Equals(selectedCategory) || selectedCategory.Equals("All"))
                 {
                     foodList.Add(food);
-                } 
+                }
             }
 
             menuList.ItemsSource = foodList;
@@ -133,20 +135,21 @@ namespace KfcKiosk
 
         private void Count_Click(object sender, RoutedEventArgs e)
         {
-            UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent)as FrameworkElement).Parent)as Grid).Children;
+            UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
             string foodName = (parentTextBlock[0] as TextBlock).Text;
             string content = (sender as Button).Content.ToString();
-            
-            foreach(Food menu in orderList)
+
+            foreach (Food menu in orderList)
             {
-                if(menu.Name.Equals(foodName))
+                if (menu.Name.Equals(foodName))
                 {
                     if (content.Equals("+"))
                     {
                         menu.Count++;
                         Total += menu.Price;
                     }
-                    else if (content.Equals("-")) {
+                    else if (content.Equals("-"))
+                    {
 
                         menu.Count--;
                         Total -= menu.Price;
@@ -159,17 +162,17 @@ namespace KfcKiosk
             orderedList.Items.Refresh();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             orderList.Clear();
             Total = 0;
             orderedList.Items.Refresh();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
