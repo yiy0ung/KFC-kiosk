@@ -25,69 +25,29 @@ namespace KfcKiosk
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        public void ToggleMainPayment()
         {
-            LoadData();
-            UpdateData();
-        }
-
-        private void LoadData()
-        {
-            App.seatData.Load();
-            App.floorData.Load();
-            App.foodData.Load();
-        }
-
-        private void UpdateData()
-        {
-            UpdateFloor();
-        }
-
-        private void UpdateFloor()
-        {
-            lvFloor.ItemsSource = App.floorData.lstFloor;
-        }
-
-        private void UpdateSeat()
-        {
-            lvSeat.ItemsSource = App.seatData.lstSeat;
-        }
-
-        private void UpdateSeat(int floorIdx)
-        {
-            List<Seat> SelectedSeat = App.seatData.FilterSeat(floorIdx);
-            lvSeat.ItemsSource = SelectedSeat;
-        }
-
-        private void UpdateInfo(Seat seat)
-        {
-            seatId.Text = seat.Id;
-            seatOrderInfo.Text = seat.OrderInfo;
-
-            seatPayBtn.Visibility = Visibility;
-            seatFoodBtn.Visibility = Visibility;
-        }
-
-        private void LvFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Floor floor = (lvFloor.SelectedItem as Floor);
-
-            UpdateSeat(floor.Idx);
-        }
-
-        private void LvSeat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lvSeat.SelectedIndex < 0)
+            Debug.WriteLine("main window toggle");
+            if (mainCtrl.Visibility == Visibility.Visible)
             {
-                lvSeat.SelectedIndex = 0;
+                Debug.WriteLine("main window visible");
+                mainCtrl.Visibility = Visibility.Collapsed;
+                paymentCtrl.Visibility = Visibility.Visible;
+                
+                Debug.WriteLine("main: " + mainCtrl.Visibility.ToString());
+                Debug.WriteLine("pay: " + paymentCtrl.Visibility.ToString());
+            }
+            else
+            {
+                Debug.WriteLine("main window collap");
+                mainCtrl.Visibility = Visibility.Visible;
+                paymentCtrl.Visibility = Visibility.Collapsed;
             }
 
-            Seat seat = lvSeat.Items[lvSeat.SelectedIndex] as Seat;
-
-            UpdateInfo(seat);
+            Debug.WriteLine("main2: " + mainCtrl.Visibility.ToString());
+            Debug.WriteLine("pay2: " + paymentCtrl.Visibility.ToString());
         }
     }
 }

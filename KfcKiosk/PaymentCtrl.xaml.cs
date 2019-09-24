@@ -51,10 +51,7 @@ namespace KfcKiosk
 
         private void Prev_Window(object sender, RoutedEventArgs e)
         {
-            //MainWindow main = new MainWindow();
-            //App.Current.MainWindow = main;
-            //this.Close();
-            //main.Show();
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
         }
 
         private void LoadMenu(string selectedCategory)
