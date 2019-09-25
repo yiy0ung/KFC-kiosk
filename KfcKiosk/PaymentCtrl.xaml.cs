@@ -131,8 +131,9 @@ namespace KfcKiosk
 
         private void Counting(object sender, RoutedEventArgs e)
         {
-            UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
-            string foodName = (parentTextBlock[0] as TextBlock).Text;
+            //UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
+            UIElementCollection siblingEl = (((sender as FrameworkElement).Parent) as StackPanel).Children;
+            string foodName = (siblingEl[0] as TextBlock).Text;
             string content = (sender as Button).Content.ToString();
 
             foreach (Food menu in orderList)

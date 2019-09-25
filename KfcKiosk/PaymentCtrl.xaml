@@ -71,7 +71,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
@@ -92,7 +91,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
             <Image Source="Assets/Public/KFC-logo1.png"/>
             <TextBlock Text="Table No. " FontWeight="Bold"/>
-            <TextBlock Text="1"/>
+            <TextBlock x:Name="tableId"  Text="1"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
@@ -105,7 +104,7 @@
             <Button Style="{StaticResource categoryMenu}" Content="전체 취소" Click="Clear"/>
         </StackPanel>
 
-        <ListView x:Name="lvCategory" SelectionChanged="LvCategory_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Margin="0 10 0 0" BorderThickness="0">
+        <ListView x:Name="lvCategory" SelectionChanged="LvCategory_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Margin="0 10 0 0" BorderThickness="0">
             <ListViewItem Content="All" Style="{StaticResource categoryItem}"/>
             <ListViewItem Content="Burger" Style="{StaticResource categoryItem}"/>
             <ListViewItem Content="Chickin" Style="{StaticResource categoryItem}"/>
@@ -132,50 +131,19 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="0 10 0 0">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" Background="#de101d">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="메뉴" Grid.Column="0" Style="{StaticResource tableHead}"/>
-                <TextBlock Text="가격" Grid.Column="1" Style="{StaticResource tableHead}"/>
-                <TextBlock Text="수량" Grid.Column="2" Style="{StaticResource tableHead}"/>
-            </Grid>
-
-            <ListView x:Name="lvOrdered" Grid.Row="1" BorderThickness="0" Background="#ffc547">
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Background="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="180"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="80"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
-                            <TextBlock Text="{Binding Price}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
-                                <TextBlock Text="{Binding Count}"  Margin="0 0 10 0" VerticalAlignment="Center"/>
-                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Counting"/>
-                                <Button Content="-" Style="{StaticResource countBtn}" Click="Counting"/>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-            </ListView>
-        </Grid>
+        <ListView x:Name="lvOrdered" BorderThickness="0" Background="#ffc547" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="0 10 0 0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Background="White">
+                        <TextBlock Text="{Binding Name}" Margin="10" Width="150" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Text="{Binding Price}" Margin="10" Width="30" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Count}" Margin="10" Width="20" VerticalAlignment="Center"/>
+                        <Button Content="+" Style="{StaticResource countBtn}" Click="Counting" Margin="10" Width="20" VerticalAlignment="Center"/>
+                        <Button Content="-" Style="{StaticResource countBtn}" Click="Counting" Margin="10" Width="20" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <TextBlock x:Name="totalPrice" Text="{Binding Total}" Grid.Row="4" Grid.Column="3" Style="{StaticResource totalAmount}"/>
     </Grid>
