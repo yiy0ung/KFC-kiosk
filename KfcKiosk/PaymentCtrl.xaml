@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KfcKiosk"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1400">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        
         <Style x:Key="categoryMenu" TargetType="Button">
             <Setter Property="Background" Value="#de101d" />
             <Setter Property="Foreground" Value="White" />
@@ -18,12 +19,11 @@
 
         <Style x:Key="categoryItem" TargetType="ListBoxItem">
             <Setter Property="Background" Value="#de101d"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Height" Value="50"/>
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Padding" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
@@ -75,6 +75,7 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
@@ -83,7 +84,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Click="Prev_Window" Width="50" Height="50" Background="Transparent" BorderBrush="Transparent">
+            <Button Click="Prev_Ctrl" Width="50" Height="50" Background="Transparent" BorderBrush="Transparent">
                 <Image Source="Assets/Public/Arrow.png"/>
             </Button>
         </StackPanel>
@@ -96,15 +97,15 @@
 
         <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
             <TextBlock Text="최근 주문 시간 " FontWeight="Bold"/>
-            <TextBlock x:Name="leastTime" HorizontalAlignment="Right"/>
+            <TextBlock x:Name="leastOrderTime" HorizontalAlignment="Right"/>
         </StackPanel>
 
 
         <StackPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Style="{StaticResource categoryMenu}" Content="전체 취소" Click="Clear_Click"/>
+            <Button Style="{StaticResource categoryMenu}" Content="전체 취소" Click="Clear"/>
         </StackPanel>
 
-        <ListView x:Name="categoryList" SelectionChanged="CategoryList_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Margin="0 10 0 0" BorderThickness="0">
+        <ListView x:Name="lvCategory" SelectionChanged="LvCategory_SelectionChanged" Grid.Row="2" Grid.Column="0" Grid.RowSpan="3" Margin="0 10 0 0" BorderThickness="0">
             <ListViewItem Content="All" Style="{StaticResource categoryItem}"/>
             <ListViewItem Content="Burger" Style="{StaticResource categoryItem}"/>
             <ListViewItem Content="Chickin" Style="{StaticResource categoryItem}"/>
@@ -112,7 +113,7 @@
             <ListViewItem Content="Snack" Style="{StaticResource categoryItem}"/>
         </ListView>
 
-        <ListView SelectionChanged="MenuList_SelectionChanged" x:Name="menuList"  Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Style="{StaticResource menuPanel}">
+        <ListView x:Name="lvMenu" SelectionChanged="LvMenu_SelectionChanged" Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Style="{StaticResource menuPanel}">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -150,7 +151,7 @@
                 <TextBlock Text="수량" Grid.Column="2" Style="{StaticResource tableHead}"/>
             </Grid>
 
-            <ListView x:Name="orderedList" Grid.Row="1" BorderThickness="0" Background="#ffc547">
+            <ListView x:Name="lvOrdered" Grid.Row="1" BorderThickness="0" Background="#ffc547">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -166,8 +167,8 @@
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="2" >
                                 <TextBlock Text="{Binding Count}"  Margin="0 0 10 0" VerticalAlignment="Center"/>
-                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Count_Click"/>
-                                <Button Content="-" Style="{StaticResource countBtn}" Click="Count_Click"/>
+                                <Button Content="+" Margin="0 0 10 0" Style="{StaticResource countBtn}" Click="Counting"/>
+                                <Button Content="-" Style="{StaticResource countBtn}" Click="Counting"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
