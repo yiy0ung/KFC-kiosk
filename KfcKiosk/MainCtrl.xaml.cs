@@ -96,7 +96,7 @@ namespace KfcKiosk
 
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
+            //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
         }
     }
 }

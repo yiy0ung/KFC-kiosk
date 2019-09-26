@@ -14,40 +14,87 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
+    delegate void Work();
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Work(PutCurrentTime));
+            this.Loaded += MainWindow_Loaded;
         }
 
-        public void ToggleMainPayment()
+        private void PutCurrentTime()
         {
-            Debug.WriteLine("main window toggle");
-            if (mainCtrl.Visibility == Visibility.Visible)
+            currentTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, new Work(PutCurrentTime));
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+            UpdateData();
+        }
+
+        private void LoadData()
+        {
+            App.seatData.Load();
+            App.floorData.Load();
+            App.foodData.Load();
+        }
+
+        private void UpdateData()
+        {
+            UpdateFloor();
+        }
+
+
+        private void UpdateFloor()
+        {
+            lvFloor.ItemsSource = App.floorData.lstFloor;
+        }
+
+        private void UpdateSeat(int floorIdx)
+        {
+            List<Seat> SelectedSeat = App.seatData.FilterSeat(floorIdx);
+            lvSeat.ItemsSource = SelectedSeat;
+        }
+
+        private void UpdateInfo(Seat seat)
+        {
+            seatId.Text = seat.Id;
+            seatOrderInfo.Text = seat.OrderInfo;
+
+            seatCheckBtn.Visibility = Visibility.Visible;
+            seatFoodBtn.Visibility = Visibility.Visible;
+        }
+
+        private void LvFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Floor floor = (lvFloor.SelectedItem as Floor);
+
+            UpdateSeat(floor.Idx);
+        }
+
+        private void LvSeat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvSeat.SelectedIndex < 0)
             {
-                Debug.WriteLine("main window visible");
-                mainCtrl.Visibility = Visibility.Collapsed;
-                paymentCtrl.Visibility = Visibility.Visible;
-                
-                Debug.WriteLine("main: " + mainCtrl.Visibility.ToString());
-                Debug.WriteLine("pay: " + paymentCtrl.Visibility.ToString());
-            }
-            else
-            {
-                Debug.WriteLine("main window collap");
-                mainCtrl.Visibility = Visibility.Visible;
-                paymentCtrl.Visibility = Visibility.Collapsed;
+                lvSeat.SelectedIndex = 0;
             }
 
-            Debug.WriteLine("main2: " + mainCtrl.Visibility.ToString());
-            Debug.WriteLine("pay2: " + paymentCtrl.Visibility.ToString());
+            Seat seat = lvSeat.Items[lvSeat.SelectedIndex] as Seat;
+
+            UpdateInfo(seat);
+        }
+
+        private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
         }
     }
 }
