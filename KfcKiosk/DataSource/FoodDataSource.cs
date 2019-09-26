@@ -106,7 +106,7 @@ namespace KfcKiosk.DataSource
                     Price = 21200,
                     ImgPath = "Assets/Chickin/blackLabelChickin-8p.png",
                     Kcal = 2112,
-                    Category = ECategory.Chickin,
+                    Category = ECategory.Chicken,
                 },
                 new Food() {
                     Name = "갓양념치킨8조각",
@@ -114,7 +114,7 @@ namespace KfcKiosk.DataSource
                     Price = 20700,
                     ImgPath = "Assets/Chickin/godSauceChickin-8p.png",
                     Kcal = 3000,
-                    Category = ECategory.Chickin,
+                    Category = ECategory.Chicken,
                 },
                 new Food() {
                     Name = "핫칠리씨치킨8조각",
@@ -122,7 +122,7 @@ namespace KfcKiosk.DataSource
                     Price = 20700,
                     ImgPath = "Assets/Chickin/hotChiliChickin-8p.png",
                     Kcal = 2264,
-                    Category = ECategory.Chickin,
+                    Category = ECategory.Chicken,
                 },
                 new Food() {
                     Name = "핫크리스피버켓9조각",
@@ -130,7 +130,7 @@ namespace KfcKiosk.DataSource
                     Price = 20600,
                     ImgPath = "Assets/Chickin/hotCrispyChickin-9p.png",
                     Kcal = 2264,
-                    Category = ECategory.Chickin,
+                    Category = ECategory.Chicken,
                 },
                 new Food() {
                     Name = "오리지널버켓9조각",
@@ -138,7 +138,7 @@ namespace KfcKiosk.DataSource
                     Price = 20600,
                     ImgPath = "Assets/Chickin/originalChickin-9p.png",
                     Kcal = 2439,
-                    Category = ECategory.Chickin,
+                    Category = ECategory.Chicken,
                 },
                 new Food() {
                     Name = "맥주",

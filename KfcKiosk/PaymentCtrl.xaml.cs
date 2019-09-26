@@ -17,11 +17,9 @@ using System.Windows.Shapes;
 
 namespace KfcKiosk
 {
-    /// <summary>
-    /// Interaction logic for PaymentCtrl.xaml
-    /// </summary>
     public partial class PaymentCtrl : UserControl, INotifyPropertyChanged
     {
+        public string SelectedSeat { get; set; }
         private List<Food> orderList = new List<Food>();
 
         private int total = 0;
@@ -63,8 +61,8 @@ namespace KfcKiosk
                     SetMenu("Burger");
                     break;
 
-                case "Chickin":
-                    SetMenu("Chickin");
+                case "Chicken":
+                    SetMenu("Chicken");
                     break;
 
                 case "Drink":

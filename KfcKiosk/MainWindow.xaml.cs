@@ -18,26 +18,26 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-    delegate void Work();
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            Dispatcher.Invoke(DispatcherPriority.Normal, new Work(PutCurrentTime));
             this.Loaded += MainWindow_Loaded;
+            //seatCtrl.SeatComplete += SeatCtrl_OnSeatComplete;
         }
 
-        private void PutCurrentTime()
-        {
-            currentTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, new Work(PutCurrentTime));
-        }
+        //private void SeatCtrl_OnSeatComplete(object sender, SeatArgs args)
+        //{
+        //    //Debug.WriteLine(args.TableId);
+            
+        //    //seatCtrl.Visibility = Visibility.Collapsed;
+        //    //paymentCtrl.Visibility = Visibility.Visible;
+        //}
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
-            UpdateData();
         }
 
         private void LoadData()
@@ -45,56 +45,6 @@ namespace KfcKiosk
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
-        }
-
-        private void UpdateData()
-        {
-            UpdateFloor();
-        }
-
-
-        private void UpdateFloor()
-        {
-            lvFloor.ItemsSource = App.floorData.lstFloor;
-        }
-
-        private void UpdateSeat(int floorIdx)
-        {
-            List<Seat> SelectedSeat = App.seatData.FilterSeat(floorIdx);
-            lvSeat.ItemsSource = SelectedSeat;
-        }
-
-        private void UpdateInfo(Seat seat)
-        {
-            seatId.Text = seat.Id;
-            seatOrderInfo.Text = seat.OrderInfo;
-
-            seatCheckBtn.Visibility = Visibility.Visible;
-            seatFoodBtn.Visibility = Visibility.Visible;
-        }
-
-        private void LvFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Floor floor = (lvFloor.SelectedItem as Floor);
-
-            UpdateSeat(floor.Idx);
-        }
-
-        private void LvSeat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lvSeat.SelectedIndex < 0)
-            {
-                lvSeat.SelectedIndex = 0;
-            }
-
-            Seat seat = lvSeat.Items[lvSeat.SelectedIndex] as Seat;
-
-            UpdateInfo(seat);
-        }
-
-        private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
         }
     }
 }

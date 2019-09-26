@@ -1,7 +1,6 @@
 ﻿using Kfc.Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,46 +17,39 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-    /// <summary>
-    /// Interaction logic for MainCtrl.xaml
-    /// </summary>
-    public partial class MainCtrl : UserControl
+    //public class SeatArgs : EventArgs
+    //{
+    //    public string TableId { get; set; }
+    //}
+
+    public partial class SeatCtrl : UserControl
     {
         delegate void Work();
-        public MainCtrl()
+        //public delegate void OnSeatCompleteHandler(object sender, SeatArgs args);
+        //public event OnSeatCompleteHandler SeatComplete;
+
+        private Seat selectedSeat { get; set; }
+
+        public SeatCtrl()
         {
             InitializeComponent();
             Dispatcher.Invoke(DispatcherPriority.Normal, new Work(PutCurrentTime));
-            this.Loaded += MainWindow_Loaded;
+            this.Loaded += SeatCtrl_Loaded;
+        }
+
+        private void SeatCtrl_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateFloor();
+        }
+        private void UpdateFloor()
+        {
+            lvFloor.ItemsSource = App.floorData.lstFloor;
         }
 
         private void PutCurrentTime()
         {
             currentTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, new Work(PutCurrentTime));
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadData();
-            UpdateData();
-        }
-
-        private void LoadData()
-        {
-            App.seatData.Load();
-            App.floorData.Load();
-            App.foodData.Load();
-        }
-
-        private void UpdateData()
-        {
-            UpdateFloor();
-        }
-
-        private void UpdateFloor()
-        {
-            lvFloor.ItemsSource = App.floorData.lstFloor;
         }
 
         private void UpdateSeat(int floorIdx)
@@ -71,8 +63,8 @@ namespace KfcKiosk
             seatId.Text = seat.Id;
             seatOrderInfo.Text = seat.OrderInfo;
 
-            seatCheckBtn.Visibility = Visibility;
-            seatFoodBtn.Visibility = Visibility;
+            seatCheckBtn.Visibility = Visibility.Visible;
+            seatFoodBtn.Visibility = Visibility.Visible;
         }
 
         private void LvFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,13 +82,23 @@ namespace KfcKiosk
             }
 
             Seat seat = lvSeat.Items[lvSeat.SelectedIndex] as Seat;
+            selectedSeat = seat;
 
             UpdateInfo(seat);
         }
 
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {
-            //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
+            //SeatArgs args = new SeatArgs();
+            //args.TableId = selectedSeat.Id;
+
+            //if (SeatComplete != null)
+            //{
+            //    SeatComplete(this, args);
+            //}
+            paymentCtrl.SelectedSeat = selectedSeat;
+            seatCtrl.Visibility = Visibility.Collapsed;
+            paymentCtrl.Visibility = Visibility.Visible;
         }
     }
 }

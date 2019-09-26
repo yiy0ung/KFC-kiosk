@@ -8,7 +8,7 @@ namespace Kfc.Core
 {
     public enum ECategory
     {
-        Chickin,
+        Chicken,
         Burger,
         Drink,
         Snack,
