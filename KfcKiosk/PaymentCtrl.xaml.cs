@@ -45,11 +45,10 @@ namespace KfcKiosk
         {
             App.foodData.Load();
             LoadMenu("All");
-            ResetTime();
             totalPrice.DataContext = this;
         }
 
-        private void Prev_Window(object sender, RoutedEventArgs e)
+        private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
             //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
         }
@@ -94,18 +93,18 @@ namespace KfcKiosk
                 }
             }
 
-            menuList.ItemsSource = foodList;
+            lvMenu.ItemsSource = foodList;
         }
 
-        private void CategoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedCategory = ((ListBoxItem)(categoryList.SelectedItem)).Content.ToString();
+            string selectedCategory = ((ListBoxItem)(lvCategory.SelectedItem)).Content.ToString();
             LoadMenu(selectedCategory);
         }
 
-        private void MenuList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LvMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Food selectedMenu = ((Food)menuList.SelectedItem);
+            Food selectedMenu = ((Food)lvMenu.SelectedItem);
 
             if (selectedMenu == null) return;
 
@@ -119,21 +118,22 @@ namespace KfcKiosk
                 Total += selectedMenu.Price;
             }
 
-            orderedList.ItemsSource = orderList;
-            orderedList.Items.Refresh();
+            lvOrdered.ItemsSource = orderList;
+            lvOrdered.Items.Refresh();
 
-            menuList.SelectedItem = null;
+            lvMenu.SelectedItem = null;
         }
 
         private void ResetTime()
         {
-            leastTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
+            leastOrderTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
         }
 
-        private void Count_Click(object sender, RoutedEventArgs e)
+        private void Counting(object sender, RoutedEventArgs e)
         {
-            UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
-            string foodName = (parentTextBlock[0] as TextBlock).Text;
+            //UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
+            UIElementCollection siblingEl = (((sender as FrameworkElement).Parent) as Grid).Children;
+            string foodName = (siblingEl[1] as TextBlock).Text;
             string content = (sender as Button).Content.ToString();
 
             foreach (Food menu in orderList)
@@ -156,14 +156,14 @@ namespace KfcKiosk
                     break;
                 }
             }
-            orderedList.Items.Refresh();
+            lvOrdered.Items.Refresh();
         }
 
-        private void Clear_Click(object sender, RoutedEventArgs e)
+        private void Clear(object sender, RoutedEventArgs e)
         {
             orderList.Clear();
             Total = 0;
-            orderedList.Items.Refresh();
+            lvOrdered.Items.Refresh();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
