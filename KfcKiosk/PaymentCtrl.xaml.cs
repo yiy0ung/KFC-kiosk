@@ -17,9 +17,16 @@ using System.Windows.Shapes;
 
 namespace KfcKiosk
 {
+    public class PayArgs : EventArgs
+    {
+        public Seat selectedSeat { get; set; }
+    }
     public partial class PaymentCtrl : UserControl, INotifyPropertyChanged
     {
-        public string SelectedSeat { get; set; }
+        public delegate void OnPayEventHandler(object sender, PayArgs args);
+        public event OnPayEventHandler PayEvent;
+
+        public Seat SelectedSeat { get; set; }
         private List<Food> orderList = new List<Food>();
 
         private int total = 0;
@@ -41,14 +48,21 @@ namespace KfcKiosk
 
         private void PaymentCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            App.foodData.Load();
+            //App.foodData.Load();
             LoadMenu("All");
             totalPrice.DataContext = this;
         }
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
-            //((MainWindow)System.Windows.Application.Current.MainWindow).ToggleMainPayment();
+            PayArgs args = new PayArgs();
+
+            args.selectedSeat = this.SelectedSeat;
+
+            if (PayEvent != null)
+            {
+                PayEvent(this, args);
+            }
         }
 
         private void LoadMenu(string selectedCategory)

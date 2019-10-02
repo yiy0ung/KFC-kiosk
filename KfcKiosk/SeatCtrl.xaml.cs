@@ -17,16 +17,9 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-    //public class SeatArgs : EventArgs
-    //{
-    //    public string TableId { get; set; }
-    //}
-
     public partial class SeatCtrl : UserControl
     {
         delegate void Work();
-        //public delegate void OnSeatCompleteHandler(object sender, SeatArgs args);
-        //public event OnSeatCompleteHandler SeatComplete;
 
         private Seat selectedSeat { get; set; }
 
@@ -35,12 +28,19 @@ namespace KfcKiosk
             InitializeComponent();
             Dispatcher.Invoke(DispatcherPriority.Normal, new Work(PutCurrentTime));
             this.Loaded += SeatCtrl_Loaded;
+            paymentCtrl.PayEvent += PaymentCtrl_OnPaymentEvent;
         }
 
         private void SeatCtrl_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateFloor();
         }
+
+        private void PaymentCtrl_OnPaymentEvent(object sender, PayArgs args)
+        {
+            SeatPayPage_Toggle();
+        }
+
         private void UpdateFloor()
         {
             lvFloor.ItemsSource = App.floorData.lstFloor;
@@ -96,9 +96,22 @@ namespace KfcKiosk
             //{
             //    SeatComplete(this, args);
             //}
-            paymentCtrl.SelectedSeat = selectedSeat;
-            seatCtrl.Visibility = Visibility.Collapsed;
-            paymentCtrl.Visibility = Visibility.Visible;
+            SeatPayPage_Toggle();
+        }
+
+        private void SeatPayPage_Toggle()
+        {
+            if (seatCtrl.Visibility == Visibility.Visible)
+            {
+                paymentCtrl.SelectedSeat = selectedSeat;
+                seatCtrl.Visibility = Visibility.Collapsed;
+                paymentCtrl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                seatCtrl.Visibility = Visibility.Visible;
+                paymentCtrl.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
