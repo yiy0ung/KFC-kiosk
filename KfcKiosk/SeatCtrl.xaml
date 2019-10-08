@@ -7,6 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Style x:Key="smallBtn" TargetType="Button">
+            <Setter Property="FontSize" Value="16px"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="Background" Value="#00F0F8FF"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="CommonBtn" TargetType="Button">
             <Setter Property="FontSize" Value="18px"/>
             <Setter Property="Width" Value="110"/>
@@ -183,11 +200,34 @@
                             <StackPanel Grid.Row="2" Orientation="Horizontal" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center">
-                                <Button x:Name="seatCheckBtn" Visibility="Collapsed"  Style="{StaticResource CommonBtn}">결제하기</Button>
+                                <Button x:Name="seatCheckBtn" Click="SeatCheckBtn_Click" Visibility="Collapsed"  Style="{StaticResource CommonBtn}">결제하기</Button>
                                 <Button x:Name="seatFoodBtn" Click="SeatPayBtn_Click" Visibility="Collapsed" Style="{StaticResource CommonBtn}">메뉴추가</Button>
                             </StackPanel>
                         </Grid>
                     </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="paymentAlert" Width="400" Height="180" Background="#cccccc" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
+                    <TextBlock x:Name="paymentSeatId" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Text=" 결제" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Border Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
+                        <Button Content="카드 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
+                        <Button Content="현금 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
+                    </StackPanel>
                 </Border>
             </Grid>
         </Grid>

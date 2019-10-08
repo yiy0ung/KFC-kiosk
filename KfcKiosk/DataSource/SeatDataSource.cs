@@ -47,5 +47,18 @@ namespace KfcKiosk.DataSource
 
             return filterSeat;
         }
+        public void ClearSeat(string SeatId)
+        {
+            foreach (Seat seat in lstSeat)
+            {
+                if (SeatId.Equals(seat.Id))
+                {
+                    seat.OrderInfo = "";
+                    seat.lstFood.Clear();
+
+                    break;
+                }
+            }
+        }
     }
 }

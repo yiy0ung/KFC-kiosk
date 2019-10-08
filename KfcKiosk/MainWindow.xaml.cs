@@ -24,16 +24,16 @@ namespace KfcKiosk
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
-            //seatCtrl.SeatComplete += SeatCtrl_OnSeatComplete;
+            seatCtrl.SeatEvent += SeatCtrl_OnSeatEvent;
         }
 
-        //private void SeatCtrl_OnSeatComplete(object sender, SeatArgs args)
-        //{
-        //    //Debug.WriteLine(args.TableId);
-            
-        //    //seatCtrl.Visibility = Visibility.Collapsed;
-        //    //paymentCtrl.Visibility = Visibility.Visible;
-        //}
+        private void SeatCtrl_OnSeatEvent(object sender, SeatArgs args)
+        {
+            //Debug.WriteLine(args.TableId);
+
+            //seatCtrl.Visibility = Visibility.Collapsed;
+            //paymentCtrl.Visibility = Visibility.Visible;
+        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {

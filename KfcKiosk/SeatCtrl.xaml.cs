@@ -17,9 +17,16 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
+    public class SeatArgs : EventArgs
+    {
+        
+    }
+
     public partial class SeatCtrl : UserControl
     {
         delegate void Work();
+        public delegate void OnSeatEventHandler(object sender, SeatArgs args);
+        public event OnSeatEventHandler SeatEvent;
 
         private Seat selectedSeat { get; set; }
 
@@ -33,7 +40,7 @@ namespace KfcKiosk
 
         private void SeatCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateFloor();
+            lvFloor.ItemsSource = App.floorData.lstFloor;
         }
 
         private void PaymentCtrl_OnPaymentEvent(object sender, PayArgs args)
@@ -41,32 +48,14 @@ namespace KfcKiosk
             SeatPayPage_Toggle();
         }
 
-        private void UpdateFloor()
-        {
-            lvFloor.ItemsSource = App.floorData.lstFloor;
-        }
-
+        // 현재 시간
         private void PutCurrentTime()
         {
             currentTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, new Work(PutCurrentTime));
         }
 
-        private void UpdateSeat(int floorIdx)
-        {
-            List<Seat> SelectedSeat = App.seatData.FilterSeat(floorIdx);
-            lvSeat.ItemsSource = SelectedSeat;
-        }
-
-        private void UpdateInfo(Seat seat)
-        {
-            seatId.Text = seat.Id;
-            seatOrderInfo.Text = seat.OrderInfo;
-
-            seatCheckBtn.Visibility = Visibility.Visible;
-            seatFoodBtn.Visibility = Visibility.Visible;
-        }
-
+        // Floor Selection changed
         private void LvFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Floor floor = (lvFloor.SelectedItem as Floor);
@@ -74,6 +63,14 @@ namespace KfcKiosk
             UpdateSeat(floor.Idx);
         }
 
+        // 층을 선택했을 때 floorIdx를 인자로 받아 업데이트
+        private void UpdateSeat(int floorIdx)
+        {
+            List<Seat> SelectedSeat = App.seatData.FilterSeat(floorIdx);
+            lvSeat.ItemsSource = SelectedSeat;
+        }
+
+        // Seat Selection changed
         private void LvSeat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lvSeat.SelectedIndex < 0)
@@ -87,15 +84,48 @@ namespace KfcKiosk
             UpdateInfo(seat);
         }
 
+        private void UpdateInfo(Seat seat)
+        {
+            seatId.Text = seat.Id;
+            seatOrderInfo.Text = seat.OrderInfo;
+
+            seatCheckBtn.Visibility = Visibility.Visible;
+            seatFoodBtn.Visibility = Visibility.Visible;
+        }
+
+        private void SeatCheckBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedSeat.lstFood.Count == 0)
+            {
+                MessageBox.Show("주문한 메뉴가 없습니다!", "WARNING");
+                return;
+            }
+
+            paymentSeatId.Text = selectedSeat.Id;
+
+            paymentAlert.Visibility = Visibility.Visible;
+        }
+
+        private void Check_Payment_Click(object sender, RoutedEventArgs e)
+        {
+            // main window에 delegate 이벤트 추가 하고 결재된 총 금액을 메인으로 보낸다 or 통계에 저장
+            // 해당 테이블의 메뉴 리스트를 저장
+            //SeatArgs args = new SeatArgs();
+
+            // 결제된 메뉴에 추가
+            App.statData.AppendPaidFoods(selectedSeat.lstFood);
+
+            // selectedSeat의 메뉴 초기화
+            App.seatData.ClearSeat(selectedSeat.Id);
+
+            paymentAlert.Visibility = Visibility.Collapsed;
+
+            // message box로 완료되었습니다.
+            MessageBox.Show("결제 되었습니다", "SUCCESS");
+        }
+
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {
-            //SeatArgs args = new SeatArgs();
-            //args.TableId = selectedSeat.Id;
-
-            //if (SeatComplete != null)
-            //{
-            //    SeatComplete(this, args);
-            //}
             SeatPayPage_Toggle();
         }
 
