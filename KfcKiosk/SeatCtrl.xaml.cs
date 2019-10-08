@@ -136,6 +136,7 @@ namespace KfcKiosk
                 paymentCtrl.SelectedSeat = selectedSeat;
                 seatCtrl.Visibility = Visibility.Collapsed;
                 paymentCtrl.Visibility = Visibility.Visible;
+                paymentCtrl.LoadOrderList();
             }
             else
             {
