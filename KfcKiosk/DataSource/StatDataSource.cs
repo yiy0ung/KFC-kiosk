@@ -21,7 +21,7 @@ namespace KfcKiosk.DataSource
         {
             int totalPrice = 0;
 
-            foreach(Food food in lstPaidFood)
+            foreach (Food food in lstPaidFood)
             {
                 totalPrice += food.Price;
             }
