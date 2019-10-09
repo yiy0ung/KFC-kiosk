@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="KfcKiosk.SeatCtrl"
+﻿<UserControl x:Class="KfcKiosk.Analysis"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -81,11 +81,11 @@
 
                     <Image Source="./Assets/Public/KFC-logo1.png" Width="100" Height="100" Margin="30,0,0,0"/>
                     <TextBlock Grid.Column="1" Margin="30,0,0,0" Foreground="White" FontWeight="Bold" FontSize="50" VerticalAlignment="Center" >KFC</TextBlock>
-                    <!--<TextBlock x:Name="CurrentTime"></TextBlock>-->
+                    <TextBlock Grid.Column="1" Margin="130,0,0,0" Foreground="White" FontWeight="Light" FontSize="40" VerticalAlignment="Center" >Analysis</TextBlock>
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Click="Button_Click" Style="{StaticResource OptionBtn}">통계보기</Button>
+                    <Button Click="Button_Click" Style="{StaticResource OptionBtn}">홈으로</Button>
                 </StackPanel>
             </Grid>
 
@@ -100,18 +100,40 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="black">
                             <Grid Margin="10">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⏱️ 현재 시각 : " FontSize="15" FontWeight="Bold" />
-                                    <TextBlock x:Name="currentTime" FontSize="15" FontWeight="Bold" />
+                                    <TextBlock Text="KFC 통계분석센터" FontSize="20" FontWeight="Bold" />
                                 </StackPanel>
                             </Grid>
                         </Border>
-
+                        <Border Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="black">
+                            <Grid Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="KFC 재무지표" FontSize="15"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="2" BorderThickness="0,0,0,1" BorderBrush="black">
+                            <Grid Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="KFC 판매분석" FontSize="15"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="3" BorderThickness="0,0,0,1" BorderBrush="black">
+                            <Grid Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text=" " FontSize="15"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <!--
                         <ListView x:Name="lvFloor" Grid.Row="1"
                               BorderThickness="0"
                               SelectionChanged="LvFloor_SelectionChanged"
@@ -130,6 +152,7 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                        -->
                     </Grid>
                 </Border>
 
@@ -138,11 +161,14 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
                     <Grid Grid.Row="0">
-                        <TextBlock Text="⛱️ Table" FontWeight="Bold" Margin="40,15,0,0" FontSize="50"/>
+                        <StackPanel Orientation="Horizontal" Margin="40,15,0,0">
+                            <TextBlock Text="총 매출액: " FontWeight="Bold" FontSize="50"/>
+                            <TextBlock x:Name="totalPrice" FontWeight="Bold" FontSize="50"/>
+                            <TextBlock Text="원 (KRW)" FontWeight="Bold" FontSize="50"/>
+                        </StackPanel>
                     </Grid>
-
+<!--
                     <ListView Grid.Row="1" x:Name="lvSeat" Padding="30"
                           SelectionChanged="LvSeat_SelectionChanged"
                           BorderThickness="0"
@@ -168,6 +194,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    -->
                 </Grid>
 
                 <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1,0,0,0">
@@ -176,11 +203,12 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-
+<!--
                         <Grid Grid.Row="0">
                             <TextBlock FontSize="30" FontWeight="Bold" Margin="10,20,0,0">🍔 Information</TextBlock>
                         </Grid>
-
+                        -->
+<!--
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -204,36 +232,10 @@
                                 <Button x:Name="seatFoodBtn" Click="SeatPayBtn_Click" Visibility="Collapsed" Style="{StaticResource CommonBtn}">메뉴추가</Button>
                             </StackPanel>
                         </Grid>
+                        -->
                     </Grid>
                 </Border>
             </Grid>
         </Grid>
-
-        <Grid x:Name="paymentAlert" Width="400" Height="180" Background="#cccccc" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
-            </Grid.RowDefinitions>
-            
-            <Grid Grid.Row="0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
-                    <TextBlock x:Name="paymentSeatId" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Text=" 결제" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                </StackPanel>
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <Border Margin="10">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
-                        <Button Content="카드 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
-                        <Button Content="현금 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
-                    </StackPanel>
-                </Border>
-            </Grid>
-        </Grid>
-        
-        <local:PaymentCtrl x:Name="paymentCtrl" Visibility="Collapsed"/>
-        <local:Analysis x:Name="analysisCtrl" Visibility="Collapsed"/>
     </Grid>
-
 </UserControl>

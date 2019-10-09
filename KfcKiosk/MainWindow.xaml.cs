@@ -24,7 +24,6 @@ namespace KfcKiosk
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
-            seatCtrl.SeatEvent += SeatCtrl_OnSeatEvent;
         }
 
         private void SeatCtrl_OnSeatEvent(object sender, SeatArgs args)
