@@ -133,26 +133,6 @@
                                 </StackPanel>
                             </Grid>
                         </Border>
-                        <!--
-                        <ListView x:Name="lvFloor" Grid.Row="1"
-                              BorderThickness="0"
-                              SelectionChanged="LvFloor_SelectionChanged"
-                              ScrollViewer.CanContentScroll="False">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal" Margin="15">
-                                            <TextBlock FontSize="18">
-                                            <TextBlock Text="{Binding FloorNum}"></TextBlock>
-                                            <TextBlock Text="층 : "></TextBlock>
-                                            <TextBlock Text="{Binding Info}"></TextBlock>
-                                        </TextBlock>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        -->
                     </Grid>
                 </Border>
 
@@ -168,33 +148,6 @@
                             <TextBlock Text="원 (KRW)" FontWeight="Bold" FontSize="50"/>
                         </StackPanel>
                     </Grid>
-<!--
-                    <ListView Grid.Row="1" x:Name="lvSeat" Padding="30"
-                          SelectionChanged="LvSeat_SelectionChanged"
-                          BorderThickness="0"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.CanContentScroll="False">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="20">
-                                    <Border Background="#457744" Border.CornerRadius="8" Padding="40">
-                                        <Grid>
-                                            <TextBlock
-                                            Text="{Binding Id}"
-                                            Foreground="White"
-                                            FontSize="25"/>
-                                        </Grid>
-                                    </Border>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    -->
                 </Grid>
 
                 <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1,0,0,0">
@@ -203,36 +156,18 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-<!--
                         <Grid Grid.Row="0">
-                            <TextBlock FontSize="30" FontWeight="Bold" Margin="10,20,0,0">🍔 Information</TextBlock>
+                            <TextBlock FontSize="30" FontWeight="Bold" Margin="10,20,0,0">Information</TextBlock>
                         </Grid>
-                        -->
-<!--
                         <Grid Grid.Row="1">
+                            <!--
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-
-                            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="20">
-                                <TextBlock Text="ID: " FontSize="20" FontWeight="Bold"/>
-                                <TextBlock x:Name="seatId" FontSize="20" FontWeight="Bold"/>
-                            </StackPanel>
-
-                            <Border Grid.Row="1" Margin="10" BorderBrush="Gray" BorderThickness="2" Height="auto">
-                                <TextBlock x:Name="seatOrderInfo"/>
-                            </Border>
-
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center">
-                                <Button x:Name="seatCheckBtn" Click="SeatCheckBtn_Click" Visibility="Collapsed"  Style="{StaticResource CommonBtn}">결제하기</Button>
-                                <Button x:Name="seatFoodBtn" Click="SeatPayBtn_Click" Visibility="Collapsed" Style="{StaticResource CommonBtn}">메뉴추가</Button>
-                            </StackPanel>
+                            -->
                         </Grid>
-                        -->
                     </Grid>
                 </Border>
             </Grid>
