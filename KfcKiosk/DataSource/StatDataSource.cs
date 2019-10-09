@@ -32,7 +32,7 @@ namespace KfcKiosk.DataSource
         // 메뉴별 판매 금액 조회
         //public List<Food> GetPriceByType()
         //{
-
+		
         //}
     }
 }
