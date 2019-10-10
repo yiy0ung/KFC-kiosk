@@ -21,7 +21,7 @@ namespace KfcKiosk
     {
         
     }
-
+    
     public partial class SeatCtrl : UserControl
     {
         delegate void Work();
@@ -145,4 +145,3 @@ namespace KfcKiosk
             }
         }
     }
-}
