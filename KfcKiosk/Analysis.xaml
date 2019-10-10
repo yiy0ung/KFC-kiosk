@@ -85,7 +85,7 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Click="Button_Click" Style="{StaticResource OptionBtn}">홈으로</Button>
+                    <Button x:Name="btnSeatView" Click="BtnSeatView_Click" Style="{StaticResource OptionBtn}">홈으로</Button>
                 </StackPanel>
             </Grid>
 

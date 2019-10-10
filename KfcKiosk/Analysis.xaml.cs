@@ -18,34 +18,41 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-	/// <summary>
-	/// Analysis.xaml에 대한 상호 작용 논리
-	/// </summary>
+    public class AnalysisArgs : EventArgs
+    {
+
+    }
 	public partial class Analysis : UserControl
 	{
-		delegate void Work();
-		public delegate void OnSeatEventHandler(object sender, SeatArgs args);
-
-		private Seat selectedSeat { get; set; }
+		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
+        public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
 			InitializeComponent();
-			UpdateTotalPrice();
+			this.Loaded += Analysis_Loaded;
 		}
 
-		private void UpdateTotalPrice()
+        private void Analysis_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateTotalPrice();
+        }
+
+        private void UpdateTotalPrice()
 		{
 			StatDataSource sds = new StatDataSource();
 			int total = sds.GetTotalPrice();
 			totalPrice.Text = total.ToString();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
-		{
-			//SeatCtrl sc = new SeatCtrl();
-			//sc.ShowPage();
-			this.Visibility = Visibility.Collapsed;
-		}
-	}
+        private void BtnSeatView_Click(object sender, RoutedEventArgs e)
+        {
+            AnalysisArgs args = new AnalysisArgs();
+            
+            if (AnalysisEvent != null)
+            {
+                AnalysisEvent(this, args);
+            }
+        }
+    }
 }

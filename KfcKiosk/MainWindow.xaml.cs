@@ -24,14 +24,13 @@ namespace KfcKiosk
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
+            seatCtrl.SeatEvent += MainView_Loaded;
+            analysisCtrl.AnalysisEvent += MainView_Loaded;
         }
 
-        private void SeatCtrl_OnSeatEvent(object sender, SeatArgs args)
+        private void MainView_Loaded(object sender, EventArgs args)
         {
-            //Debug.WriteLine(args.TableId);
-
-            //seatCtrl.Visibility = Visibility.Collapsed;
-            //paymentCtrl.Visibility = Visibility.Visible;
+            ToggleMainView();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +43,20 @@ namespace KfcKiosk
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
+        }
+
+        private void ToggleMainView()
+        {
+            if (seatCtrl.Visibility == Visibility.Visible)
+            {
+                seatCtrl.Visibility = Visibility.Collapsed;
+                analysisCtrl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                seatCtrl.Visibility = Visibility.Visible;
+                analysisCtrl.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

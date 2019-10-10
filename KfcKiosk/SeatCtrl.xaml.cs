@@ -19,9 +19,9 @@ namespace KfcKiosk
 {
     public class SeatArgs : EventArgs
     {
-        
+
     }
-    
+
     public partial class SeatCtrl : UserControl
     {
         delegate void Work();
@@ -87,7 +87,7 @@ namespace KfcKiosk
         private void UpdateInfo(Seat seat)
         {
             seatId.Text = seat.Id;
-            seatOrderInfo.Text = seat.OrderInfo;
+            seatOrderInfo.Content = seat.OrderInfo;
 
             seatCheckBtn.Visibility = Visibility.Visible;
             seatFoodBtn.Visibility = Visibility.Visible;
@@ -108,9 +108,6 @@ namespace KfcKiosk
 
         private void Check_Payment_Click(object sender, RoutedEventArgs e)
         {
-            // main window에 delegate 이벤트 추가 하고 결재된 총 금액을 메인으로 보낸다 or 통계에 저장
-            // 해당 테이블의 메뉴 리스트를 저장
-            //SeatArgs args = new SeatArgs();
 
             // 결제된 메뉴에 추가
             App.statData.AppendPaidFoods(selectedSeat.lstFood);
@@ -120,7 +117,6 @@ namespace KfcKiosk
 
             paymentAlert.Visibility = Visibility.Collapsed;
 
-            // message box로 완료되었습니다.
             MessageBox.Show("결제 되었습니다", "SUCCESS");
         }
 
@@ -144,4 +140,17 @@ namespace KfcKiosk
                 paymentCtrl.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void BtnStatView_Click(object sender, RoutedEventArgs e)
+        {
+            SeatArgs args = new SeatArgs();
+
+
+            if (SeatEvent != null)
+            {
+                SeatEvent(this, args);
+            }
+        }
+
     }
+}

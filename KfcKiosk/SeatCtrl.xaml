@@ -85,7 +85,7 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Click="Button_Click" Style="{StaticResource OptionBtn}">통계보기</Button>
+                    <Button x:Name="btnStatView" Click="BtnStatView_Click" Style="{StaticResource OptionBtn}">통계보기</Button>
                 </StackPanel>
             </Grid>
 
@@ -194,7 +194,7 @@
                             </StackPanel>
 
                             <Border Grid.Row="1" Margin="10" BorderBrush="Gray" BorderThickness="2" Height="auto">
-                                <TextBlock x:Name="seatOrderInfo"/>
+                                <Label x:Name="seatOrderInfo"/>
                             </Border>
 
                             <StackPanel Grid.Row="2" Orientation="Horizontal" 
