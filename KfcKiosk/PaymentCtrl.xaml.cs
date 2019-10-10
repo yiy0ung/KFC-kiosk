@@ -53,16 +53,67 @@ namespace KfcKiosk
             totalPrice.DataContext = this;
         }
 
+        public void LoadOrderList()
+        {
+            String orderInfo = "";
+
+            if (this.SelectedSeat == null)
+            {
+                Console.WriteLine("ERR: THIS_SELECTEDSEAT_NULL");
+                return;
+            }
+
+            foreach (Seat seat in App.seatData.lstSeat)
+            {
+                //주문 화면의 테이블 넘버와 일치할 때
+                if (this.SelectedSeat.Id.Equals(seat.Id))
+                {
+                    Console.WriteLine(this.SelectedSeat.Id + "OrderList_Loaded");
+
+                    orderList = seat.lstFood;
+                    ClearTotal();
+
+                    foreach (Food food in orderList)
+                    {
+                        orderInfo += food.Name + "*" + food.Count + "\n";
+                        Total += food.Price * food.Count;
+                    }
+                        
+                    seat.OrderInfo = orderInfo;
+                    Console.WriteLine(seat.OrderInfo);
+                }
+            }
+
+            lvOrdered.ItemsSource = orderList;
+            lvOrdered.Items.Refresh();
+        }
+
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
             PayArgs args = new PayArgs();
-
             args.selectedSeat = this.SelectedSeat;
 
             if (PayEvent != null)
             {
                 PayEvent(this, args);
             }
+
+            //List<Food> testFoodList = new List<Food>();
+
+            //foreach (Seat seat in App.seatData.lstSeat)
+            //{
+            //    if (this.SelectedSeat.Id.Equals(seat.Id))
+            //    {
+            //        Console.WriteLine(this.SelectedSeat.Id + "_OrderLists");
+            //        testFoodList = seat.lstFood;
+            //        foreach (Food food in testFoodList) {
+            //            Console.Write(food.Name + " ");
+            //            Console.WriteLine(food.Count);
+            //        }
+            //    }
+            //}
+
+            //App.seatData.lstSeat[0].lstFood.Add(Food food);
         }
 
         private void LoadMenu(string selectedCategory)
@@ -99,7 +150,8 @@ namespace KfcKiosk
 
             foreach (Food food in App.foodData.lstMenu)
             {
-                if (food.Category.ToString().Equals(selectedCategory) || selectedCategory.Equals("All"))
+                if (food.Category.ToString().Equals(selectedCategory) || 
+                    selectedCategory.Equals("All"))
                 {
                     foodList.Add(food);
                 }
@@ -134,6 +186,8 @@ namespace KfcKiosk
             lvOrdered.Items.Refresh();
 
             lvMenu.SelectedItem = null;
+
+            tableId.DataContext = this.SelectedSeat;
         }
 
         private void ResetTime()
@@ -141,9 +195,8 @@ namespace KfcKiosk
             leastOrderTime.Text = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
         }
 
-        private void Counting(object sender, RoutedEventArgs e)
+        private void Count_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //UIElementCollection parentTextBlock = (((((sender as FrameworkElement).Parent) as FrameworkElement).Parent) as Grid).Children;
             UIElementCollection siblingEl = (((sender as FrameworkElement).Parent) as Grid).Children;
             string foodName = (siblingEl[1] as TextBlock).Text;
             string content = (sender as Button).Content.ToString();
@@ -168,14 +221,25 @@ namespace KfcKiosk
                     break;
                 }
             }
+
             lvOrdered.Items.Refresh();
         }
 
-        private void Clear(object sender, RoutedEventArgs e)
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ClearOrderInfo();
+        }
+
+        private void ClearOrderInfo()
         {
             orderList.Clear();
-            Total = 0;
+            ClearTotal();
             lvOrdered.Items.Refresh();
+        }
+
+        private void ClearTotal()
+        {
+            Total = 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

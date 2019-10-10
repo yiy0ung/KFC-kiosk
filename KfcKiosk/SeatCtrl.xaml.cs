@@ -21,7 +21,7 @@ namespace KfcKiosk
     {
         
     }
-
+    
     public partial class SeatCtrl : UserControl
     {
         delegate void Work();
@@ -136,6 +136,7 @@ namespace KfcKiosk
                 paymentCtrl.SelectedSeat = selectedSeat;
                 seatCtrl.Visibility = Visibility.Collapsed;
                 paymentCtrl.Visibility = Visibility.Visible;
+                paymentCtrl.LoadOrderList();
             }
             else
             {
@@ -144,4 +145,3 @@ namespace KfcKiosk
             }
         }
     }
-}
