@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataSource\StatDataSource.cs" />
     <Compile Include="SeatCtrl.xaml.cs">
       <DependentUpon>SeatCtrl.xaml</DependentUpon>
     </Compile>
