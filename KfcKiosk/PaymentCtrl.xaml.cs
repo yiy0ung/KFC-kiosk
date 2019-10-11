@@ -90,6 +90,8 @@ namespace KfcKiosk
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
+            // App.SeatDataSource에 선택된 Seat에 orderInfo 업데이트
+
             PayArgs args = new PayArgs();
             args.selectedSeat = this.SelectedSeat;
 

@@ -28,6 +28,7 @@ namespace KfcKiosk
         public delegate void OnSeatEventHandler(object sender, SeatArgs args);
         public event OnSeatEventHandler SeatEvent;
 
+
         private Seat selectedSeat { get; set; }
 
         public SeatCtrl()
@@ -46,6 +47,12 @@ namespace KfcKiosk
         private void PaymentCtrl_OnPaymentEvent(object sender, PayArgs args)
         {
             SeatPayPage_Toggle();
+            OnOrderInfoHandler(args.selectedSeat.OrderInfo);
+        }
+
+        private void OnOrderInfoHandler(string orderInfo) // 주문 목록 업데이트
+        {
+            seatOrderInfo.Content = orderInfo;
         }
 
         // 현재 시간
@@ -78,7 +85,7 @@ namespace KfcKiosk
                 lvSeat.SelectedIndex = 0;
             }
 
-            Seat seat = lvSeat.Items[lvSeat.SelectedIndex] as Seat;
+            Seat seat = lvSeat.SelectedItem as Seat;
             selectedSeat = seat;
 
             UpdateInfo(seat);
@@ -119,7 +126,7 @@ namespace KfcKiosk
 
             MessageBox.Show("결제 되었습니다", "SUCCESS");
         }
-
+        
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {
             SeatPayPage_Toggle();
