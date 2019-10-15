@@ -195,7 +195,6 @@ namespace KfcKiosk
 
                     else if (content.Equals("-"))
                     {
-
                         menu.Count--;
                         Total -= menu.Price;
 
