@@ -29,6 +29,12 @@ namespace KfcKiosk
             analysisCtrl.AnalysisEvent += MainView_Loaded;
         }
 
+        private async void setTimeout(Action action, int timeMilisec)
+        {
+            await Task.Delay(timeMilisec);
+            action();
+        }
+
         private void MainView_Loaded(object sender, EventArgs args)
         {
             ToggleMainView();
@@ -37,20 +43,18 @@ namespace KfcKiosk
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
-            onLoadFinish();
         }
 
         private void LoadData()
         {
-            //TimeSpan interval = new TimeSpan(0, 0, 2);
-
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
 
-            //this.Dispatcher.Invoke((ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
-            //Thread.Sleep(3000);
-
+            setTimeout(() =>
+            {
+                onLoadFinish();
+            }, 2000);
         }
 
         private void onLoadFinish()
