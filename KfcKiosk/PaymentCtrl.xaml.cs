@@ -48,7 +48,7 @@ namespace KfcKiosk
 
         private void PaymentCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadMenu("All");
+            LoadMenu();
             totalPrice.DataContext = this;
         }
 
@@ -81,21 +81,16 @@ namespace KfcKiosk
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
-            // App.SeatDataSource에 선택된 Seat에 orderInfo 업데이트
-
+            UpdateOrderInfo();
             PayArgs args = new PayArgs();
             args.selectedSeat = this.SelectedSeat;
 
             if (PayEvent != null)
                 PayEvent(this, args);
-
-            UpdateOrderInfo();
         }
 
-        private void LoadMenu(string selectedCategory)
+        private void LoadMenu(string selectedCategory = "All")
         {
-            if (selectedCategory == null)
-                selectedCategory = "All";
 
             switch (selectedCategory)
             {
