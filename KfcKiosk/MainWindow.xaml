@@ -8,8 +8,11 @@
         mc:Ignorable="d"
         Title="KFC 주문 시스템">
     <Grid>
-        <local:Analysis x:Name="analysisCtrl" Visibility="Collapsed"/>
+        <Grid x:Name="loadingView" Background="Tomato" Visibility="Visible">
+            <Image Source="Assets/Public/KFC-logo1.png" Width="100"/>
+        </Grid>
 
-        <local:SeatCtrl x:Name="seatCtrl" Visibility="Visible"/>
+        <local:SeatCtrl x:Name="seatCtrl" Visibility="Collapsed"></local:SeatCtrl>
+        <local:Analysis x:Name="analysisCtrl" Visibility="Collapsed"></local:Analysis>
     </Grid>
 </Window>

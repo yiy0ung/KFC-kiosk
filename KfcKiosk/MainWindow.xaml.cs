@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,13 +37,26 @@ namespace KfcKiosk
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
+            onLoadFinish();
         }
 
         private void LoadData()
         {
+            //TimeSpan interval = new TimeSpan(0, 0, 2);
+
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
+
+            //this.Dispatcher.Invoke((ThreadStart)(() => { }), DispatcherPriority.ApplicationIdle);
+            //Thread.Sleep(3000);
+
+        }
+
+        private void onLoadFinish()
+        {
+            loadingView.Visibility = Visibility.Collapsed;
+            seatCtrl.Visibility = Visibility.Visible;
         }
 
         private void ToggleMainView()
