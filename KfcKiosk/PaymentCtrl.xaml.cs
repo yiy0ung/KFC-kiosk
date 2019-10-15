@@ -48,15 +48,12 @@ namespace KfcKiosk
 
         private void PaymentCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            //App.foodData.Load();
             LoadMenu("All");
             totalPrice.DataContext = this;
         }
 
         public void LoadOrderList()
         {
-            String orderInfo = "";
-
             if (this.SelectedSeat == null)
             {
                 Console.WriteLine("ERR: THIS_SELECTEDSEAT_NULL");
@@ -74,13 +71,7 @@ namespace KfcKiosk
                     ClearTotal();
 
                     foreach (Food food in orderList)
-                    {
-                        orderInfo += food.Name + "*" + food.Count + "\n";
                         Total += food.Price * food.Count;
-                    }
-                        
-                    seat.OrderInfo = orderInfo;
-                    Console.WriteLine(seat.OrderInfo);
                 }
             }
 
@@ -94,31 +85,15 @@ namespace KfcKiosk
             args.selectedSeat = this.SelectedSeat;
 
             if (PayEvent != null)
-            {
                 PayEvent(this, args);
-            }
 
-            //List<Food> testFoodList = new List<Food>();
-
-            //foreach (Seat seat in App.seatData.lstSeat)
-            //{
-            //    if (this.SelectedSeat.Id.Equals(seat.Id))
-            //    {
-            //        Console.WriteLine(this.SelectedSeat.Id + "_OrderLists");
-            //        testFoodList = seat.lstFood;
-            //        foreach (Food food in testFoodList) {
-            //            Console.Write(food.Name + " ");
-            //            Console.WriteLine(food.Count);
-            //        }
-            //    }
-            //}
-
-            //App.seatData.lstSeat[0].lstFood.Add(Food food);
+            UpdateOrderInfo();
         }
 
         private void LoadMenu(string selectedCategory)
         {
-            if (selectedCategory == null) selectedCategory = "All";
+            if (selectedCategory == null)
+                selectedCategory = "All";
 
             switch (selectedCategory)
             {
@@ -162,7 +137,9 @@ namespace KfcKiosk
 
         private void LvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedCategory = ((ListBoxItem)(lvCategory.SelectedItem)).Content.ToString();
+            string selectedCategory = ((ListBoxItem)(lvCategory.SelectedItem))
+                                      .Content
+                                      .ToString();
             LoadMenu(selectedCategory);
         }
 
@@ -197,7 +174,10 @@ namespace KfcKiosk
 
         private void Count_Btn_Click(object sender, RoutedEventArgs e)
         {
-            UIElementCollection siblingEl = (((sender as FrameworkElement).Parent) as Grid).Children;
+            UIElementCollection siblingEl = (((sender as FrameworkElement)
+                                              .Parent) as Grid)
+                                              .Children;
+
             string foodName = (siblingEl[1] as TextBlock).Text;
             string content = (sender as Button).Content.ToString();
 
@@ -210,6 +190,7 @@ namespace KfcKiosk
                         menu.Count++;
                         Total += menu.Price;
                     }
+
                     else if (content.Equals("-"))
                     {
 
@@ -218,6 +199,7 @@ namespace KfcKiosk
 
                         if (menu.Count < 1) orderList.Remove(menu);
                     }
+
                     break;
                 }
             }
@@ -240,6 +222,26 @@ namespace KfcKiosk
         private void ClearTotal()
         {
             Total = 0;
+        }
+
+        private void UpdateOrderInfo()
+        {
+            String orderInfo = "";
+
+            foreach (Seat seat in App.seatData.lstSeat)
+            {
+                //주문 화면의 테이블 넘버와 일치할 때
+                if (this.SelectedSeat.Id.Equals(seat.Id))
+                {
+                    foreach (Food food in seat.lstFood)
+                    {
+                        orderInfo += food.Name + "*" + food.Count + "\n";
+                        seat.OrderInfo = orderInfo;
+                    }
+
+                    Console.WriteLine(seat.OrderInfo);
+                }   
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
