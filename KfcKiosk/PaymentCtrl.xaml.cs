@@ -44,6 +44,7 @@ namespace KfcKiosk
         {
             InitializeComponent();
             this.Loaded += PaymentCtrl_Loaded;
+            this.IsVisibleChanged += VisibleChanged;
         }
 
         private void PaymentCtrl_Loaded(object sender, RoutedEventArgs e)
@@ -52,13 +53,15 @@ namespace KfcKiosk
             totalPrice.DataContext = this;
         }
 
+        private void VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+                LoadOrderList();
+        }
+
         public void LoadOrderList()
         {
-            if (this.SelectedSeat == null)
-            {
-                Console.WriteLine("ERR: THIS_SELECTEDSEAT_NULL");
-                return;
-            }
+            if (this.SelectedSeat == null) return;
 
             foreach (Seat seat in App.seatData.lstSeat)
             {
@@ -81,17 +84,37 @@ namespace KfcKiosk
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
-            UpdateOrderInfo();
             PayArgs args = new PayArgs();
             args.selectedSeat = this.SelectedSeat;
 
             if (PayEvent != null)
                 PayEvent(this, args);
+
+            UpdateOrderInfo();
+        }
+
+        private void UpdateOrderInfo()
+        {
+            String orderInfo = "";
+
+            foreach (Seat seat in App.seatData.lstSeat)
+            {
+                //주문 화면의 테이블 넘버와 일치할 때
+                if (this.SelectedSeat.Id.Equals(seat.Id))
+                {
+                    foreach (Food food in seat.lstFood)
+                    {
+                        orderInfo += food.Name + "*" + food.Count + "\n";
+                        seat.OrderInfo = orderInfo;
+                    }
+
+                    Console.WriteLine(seat.OrderInfo);
+                }
+            }
         }
 
         private void LoadMenu(string selectedCategory = "All")
         {
-
             switch (selectedCategory)
             {
                 case "Burger":
@@ -218,26 +241,6 @@ namespace KfcKiosk
         private void ClearTotal()
         {
             Total = 0;
-        }
-
-        private void UpdateOrderInfo()
-        {
-            String orderInfo = "";
-
-            foreach (Seat seat in App.seatData.lstSeat)
-            {
-                //주문 화면의 테이블 넘버와 일치할 때
-                if (this.SelectedSeat.Id.Equals(seat.Id))
-                {
-                    foreach (Food food in seat.lstFood)
-                    {
-                        orderInfo += food.Name + "*" + food.Count + "\n";
-                        seat.OrderInfo = orderInfo;
-                    }
-
-                    Console.WriteLine(seat.OrderInfo);
-                }   
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
