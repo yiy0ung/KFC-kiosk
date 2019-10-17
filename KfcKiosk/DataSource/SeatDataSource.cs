@@ -18,16 +18,16 @@ namespace KfcKiosk.DataSource
 
             lstSeat = new List<Seat>
             {
-                new Seat { Id = "1번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "2번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "3번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "4번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "5번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "6번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "7번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "8번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "9번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>() },
-                new Seat { Id = "10번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>() },
+                new Seat { Id = "1번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "2번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "3번 테이블", FloorIdx = 1, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "4번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "5번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "6번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "7번 테이블", FloorIdx = 2, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "8번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "9번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
+                new Seat { Id = "10번 테이블", FloorIdx = 3, OrderInfo = "", lstFood = new List<Food>(), OrderTime = "" },
             };
 
             isLoaded = true;

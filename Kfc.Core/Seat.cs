@@ -12,6 +12,7 @@ namespace Kfc.Core
         public int FloorIdx { get; set; }
         public string OrderInfo { get; set; }
         public List<Food> lstFood { get; set; }
+        public string OrderTime { get; set; }
 
         public static implicit operator string(Seat v)
         {
