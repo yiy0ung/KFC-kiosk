@@ -18,19 +18,23 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-	/// <summary>
-	/// Analysis.xaml에 대한 상호 작용 논리
-	/// </summary>
+	public class AnalysisArgs : EventArgs
+	{
+
+	}
 	public partial class Analysis : UserControl
 	{
-		delegate void Work();
-		public delegate void OnSeatEventHandler(object sender, SeatArgs args);
-
-		private Seat selectedSeat { get; set; }
+		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
+		public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
 			InitializeComponent();
+			this.Loaded += Analysis_Loaded;
+		}
+
+		private void Analysis_Loaded(object sender, RoutedEventArgs e)
+		{
 			UpdateTotalPrice();
 		}
 
@@ -41,11 +45,19 @@ namespace KfcKiosk
 			totalPrice.Text = total.ToString();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void BtnSeatView_Click(object sender, RoutedEventArgs e)
 		{
-			//SeatCtrl sc = new SeatCtrl();
-			//sc.ShowPage();
-			this.Visibility = Visibility.Collapsed;
+			AnalysisArgs args = new AnalysisArgs();
+
+			if (AnalysisEvent != null)
+			{
+				AnalysisEvent(this, args);
+			}
+			else
+			{
+				String errorText = "로딩에 실패했습니다.";
+				btnSeatView.Content = errorText;
+			}
 		}
 	}
 }

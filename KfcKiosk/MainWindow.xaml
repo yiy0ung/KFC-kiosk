@@ -8,10 +8,9 @@
         mc:Ignorable="d"
         Title="KFC 주문 시스템">
     <Grid>
-        <Grid x:Name="statsCtrl">
-            
-        </Grid>
-        
+        <Grid x:Name="statsCtrl"></Grid>
+
         <local:SeatCtrl x:Name="seatCtrl" Visibility="Visible"/>
+        <local:Analysis x:Name="analysisCtrl" Visibility="Collapsed"/>
     </Grid>
 </Window>
