@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,14 +25,19 @@ namespace KfcKiosk
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
+            seatCtrl.SeatEvent += MainView_Loaded;
+            analysisCtrl.AnalysisEvent += MainView_Loaded;
         }
 
-        private void SeatCtrl_OnSeatEvent(object sender, SeatArgs args)
+        private async void setTimeout(Action action, int timeMilisec)
         {
-            //Debug.WriteLine(args.TableId);
+            await Task.Delay(timeMilisec);
+            action();
+        }
 
-            //seatCtrl.Visibility = Visibility.Collapsed;
-            //paymentCtrl.Visibility = Visibility.Visible;
+        private void MainView_Loaded(object sender, EventArgs args)
+        {
+            ToggleMainView();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +50,31 @@ namespace KfcKiosk
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
+
+            setTimeout(() =>
+            {
+                onLoadFinish();
+            }, 2000);
+        }
+
+        private void onLoadFinish()
+        {
+            loadingView.Visibility = Visibility.Collapsed;
+            seatCtrl.Visibility = Visibility.Visible;
+        }
+
+        private void ToggleMainView()
+        {
+            if (seatCtrl.Visibility == Visibility.Visible)
+            {
+                seatCtrl.Visibility = Visibility.Collapsed;
+                analysisCtrl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                seatCtrl.Visibility = Visibility.Visible;
+                analysisCtrl.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

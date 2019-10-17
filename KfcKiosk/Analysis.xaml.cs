@@ -18,14 +18,14 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-	public class AnalysisArgs : EventArgs
-	{
+  public class AnalysisArgs : EventArgs
+  {
 
-	}
+  }
 	public partial class Analysis : UserControl
 	{
 		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
-		public event OnAnalysisEventHandler AnalysisEvent;
+    public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
@@ -38,7 +38,7 @@ namespace KfcKiosk
 			UpdateTotalPrice();
 		}
 
-		private void UpdateTotalPrice()
+    private void UpdateTotalPrice()
 		{
 			StatDataSource sds = new StatDataSource();
 			int total = sds.GetTotalPrice();
@@ -59,5 +59,7 @@ namespace KfcKiosk
 				btnSeatView.Content = errorText;
 			}
 		}
+    
 	}
 }
+
