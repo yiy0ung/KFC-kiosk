@@ -43,7 +43,7 @@
         </Style>
         <Style x:Key="OptionBtn" TargetType="Button">
             <Setter Property="FontSize" Value="18px"/>
-            <Setter Property="Width" Value="110"/>
+            <Setter Property="Width" Value="210"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
             <Setter Property="Background" Value="#00F0F8FF"/>
