@@ -43,7 +43,7 @@
         </Style>
         <Style x:Key="OptionBtn" TargetType="Button">
             <Setter Property="FontSize" Value="18px"/>
-            <Setter Property="Width" Value="210"/>
+            <Setter Property="Width" Value="110"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
             <Setter Property="Background" Value="#00F0F8FF"/>
@@ -85,7 +85,7 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="btnSeatView" Click="BtnSeatView_Click" Style="{StaticResource OptionBtn}">홈으로</Button>
+                    <Button Click="Button_Click" Style="{StaticResource OptionBtn}">홈으로</Button>
                 </StackPanel>
             </Grid>
 

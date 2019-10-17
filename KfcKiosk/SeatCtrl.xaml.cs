@@ -150,5 +150,9 @@ namespace KfcKiosk
 			seatCtrl.Visibility = Visibility.Collapsed;
 		}
 
+		public void ShowPage()
+		{
+			this.Visibility = Visibility.Visible;
+		}
 	}
 }
