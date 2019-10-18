@@ -35,23 +35,23 @@ namespace KfcKiosk
 
 		private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
 		{
-				LoadPaidFoodPrice();
+		    LoadPaidFoodPrice();
 		}
 
 		private void LoadPaidFoodPrice()
 		{
-				lvPaidFood.ItemsSource = App.foodData.lstMenu;
+			lvPaidFood.ItemsSource = App.foodData.lstMenu;
 		}
 
 		public void refreshViewData()
 		{
-				refreshTotalPrice();
+			refreshTotalPrice();
 		}
 
 		private void refreshTotalPrice()
 		{
-				int total = App.foodData.GetTotalPrice();
-				totalPrice.Text = total.ToString();
+			int total = App.foodData.GetTotalPrice();
+			totalPrice.Text = total.ToString();
 		}
 
 		private void BtnSeatView_Click(object sender, RoutedEventArgs e)
