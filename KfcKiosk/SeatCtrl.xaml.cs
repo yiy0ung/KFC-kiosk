@@ -41,6 +41,11 @@ namespace KfcKiosk
 
         private void SeatCtrl_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadSeatDataSource();
+        }
+
+        private void LoadSeatDataSource()
+        {
             lvFloor.ItemsSource = App.floorData.lstFloor;
         }
 
@@ -117,10 +122,11 @@ namespace KfcKiosk
         {
 
             // 결제된 메뉴에 추가
-            App.statData.AppendPaidFoods(selectedSeat.lstFood);
+            App.foodData.AppendPaidFoods(selectedSeat.lstFood);
 
             // selectedSeat의 메뉴 초기화
             App.seatData.ClearSeat(selectedSeat.Id);
+            OnOrderInfoHandler("");
 
             paymentAlert.Visibility = Visibility.Collapsed;
 

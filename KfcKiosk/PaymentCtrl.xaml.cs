@@ -84,13 +84,13 @@ namespace KfcKiosk
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
+            UpdateOrderInfo();
+
             PayArgs args = new PayArgs();
             args.selectedSeat = this.SelectedSeat;
 
             if (PayEvent != null)
                 PayEvent(this, args);
-
-            UpdateOrderInfo();
         }
 
         private void UpdateOrderInfo()

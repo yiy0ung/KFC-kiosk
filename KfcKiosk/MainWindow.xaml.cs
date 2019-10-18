@@ -38,6 +38,7 @@ namespace KfcKiosk
         private void MainView_Loaded(object sender, EventArgs args)
         {
             ToggleMainView();
+            analysisCtrl.refreshViewData();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

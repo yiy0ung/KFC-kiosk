@@ -30,20 +30,29 @@ namespace KfcKiosk
 		public Analysis()
 		{
 			InitializeComponent();
-			this.Loaded += Analysis_Loaded;
+            this.Loaded += AnalysisCtrl_Loaded;
 		}
 
-        private void Analysis_Loaded(object sender, RoutedEventArgs e)
+        private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateTotalPrice();
+            LoadPaidFoodPrice();
         }
 
-        private void UpdateTotalPrice()
-		{
-			StatDataSource sds = new StatDataSource();
-			int total = sds.GetTotalPrice();
-			totalPrice.Text = total.ToString();
-		}
+        private void LoadPaidFoodPrice()
+        {
+            lvPaidFood.ItemsSource = App.foodData.lstMenu;
+        }
+
+        public void refreshViewData()
+        {
+            refreshTotalPrice();
+        }
+
+        private void refreshTotalPrice()
+        {
+            int total = App.foodData.GetTotalPrice();
+            totalPrice.Text = total.ToString();
+        }
 
         private void BtnSeatView_Click(object sender, RoutedEventArgs e)
         {

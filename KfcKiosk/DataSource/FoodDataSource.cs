@@ -225,5 +225,31 @@ namespace KfcKiosk.DataSource
             isLoaded = true;
         }
 
+        public void AppendPaidFoods(List<Food> lsPaidFood)
+        {
+            foreach (Food food in lstMenu)
+            {
+                foreach (Food paidFood in lsPaidFood)
+                {
+                    if (food.Name == paidFood.Name)
+                    {
+                        food.Count += paidFood.Count;
+                    }
+                }
+            }
+        }
+
+        public int GetTotalPrice()
+        {
+            int totalPrice = 0;
+
+            foreach (Food food in lstMenu)
+            {
+                totalPrice += food.Price * food.Count;
+            }
+
+            return totalPrice;
+        }
+
     }
 }

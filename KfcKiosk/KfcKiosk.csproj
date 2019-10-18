@@ -58,7 +58,7 @@
     <Compile Include="Analysis.xaml.cs">
       <DependentUpon>Analysis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataSource\StatDataSource.cs" />
+    <Compile Include="LoadSeatDataSource.cs" />
     <Compile Include="SeatCtrl.xaml.cs">
       <DependentUpon>SeatCtrl.xaml</DependentUpon>
     </Compile>

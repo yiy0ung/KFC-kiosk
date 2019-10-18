@@ -13,6 +13,17 @@ namespace Kfc.Core
         public int Count { get; set; } // 수량
         public int Kcal { get; set; } // 열량
         public string ImgPath { get; set; }
+        public int TotalPrice
+        {
+            get
+            {
+                int retval = 0;
+
+                retval = Price * Count;
+
+                return retval;
+            }
+        }
         public ECategory Category { get; set; }
     }
 }
