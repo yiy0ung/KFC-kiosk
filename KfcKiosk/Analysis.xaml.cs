@@ -18,14 +18,14 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-    public class AnalysisArgs : EventArgs
-    {
+  public class AnalysisArgs : EventArgs
+  {
 
-    }
+  }
 	public partial class Analysis : UserControl
 	{
 		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
-        public event OnAnalysisEventHandler AnalysisEvent;
+    public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
@@ -33,35 +33,42 @@ namespace KfcKiosk
             this.Loaded += AnalysisCtrl_Loaded;
 		}
 
-        private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadPaidFoodPrice();
-        }
+		private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
+		{
+				LoadPaidFoodPrice();
+		}
 
-        private void LoadPaidFoodPrice()
-        {
-            lvPaidFood.ItemsSource = App.foodData.lstMenu;
-        }
+		private void LoadPaidFoodPrice()
+		{
+				lvPaidFood.ItemsSource = App.foodData.lstMenu;
+		}
 
-        public void refreshViewData()
-        {
-            refreshTotalPrice();
-        }
+		public void refreshViewData()
+		{
+				refreshTotalPrice();
+		}
 
-        private void refreshTotalPrice()
-        {
-            int total = App.foodData.GetTotalPrice();
-            totalPrice.Text = total.ToString();
-        }
+		private void refreshTotalPrice()
+		{
+				int total = App.foodData.GetTotalPrice();
+				totalPrice.Text = total.ToString();
+		}
 
-        private void BtnSeatView_Click(object sender, RoutedEventArgs e)
-        {
-            AnalysisArgs args = new AnalysisArgs();
-            
-            if (AnalysisEvent != null)
-            {
-                AnalysisEvent(this, args);
-            }
-        }
-    }
+		private void BtnSeatView_Click(object sender, RoutedEventArgs e)
+		{
+			AnalysisArgs args = new AnalysisArgs();
+
+			if (AnalysisEvent != null)
+			{
+				AnalysisEvent(this, args);
+			}
+			else
+			{
+				String errorText = "로딩에 실패했습니다.";
+				btnSeatView.Content = errorText;
+			}
+		}
+    
+	}
 }
+
