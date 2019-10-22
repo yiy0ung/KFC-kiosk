@@ -81,7 +81,6 @@
 
                     <Image Source="./Assets/Public/KFC-logo1.png" Width="100" Height="100" Margin="30,0,0,0"/>
                     <TextBlock Grid.Column="1" Margin="30,0,0,0" Foreground="White" FontWeight="Bold" FontSize="50" VerticalAlignment="Center" >KFC</TextBlock>
-                    <!--<TextBlock x:Name="CurrentTime"></TextBlock>-->
                 </Grid>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -209,9 +208,9 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="paymentAlert" Width="400" Height="600" Background="#e6e6e6" Visibility="Collapsed">
+        <Grid x:Name="paymentAlert" Width="400" Height="450" Background="#e6e6e6" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             
@@ -219,10 +218,10 @@
                 <Grid HorizontalAlignment="Center" Width="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
@@ -230,9 +229,12 @@
                         <TextBlock Grid.Column="0" x:Name="paymentSeatId" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                         <TextBlock Grid.Column="1" Text=" 결제" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
-                    <Border Grid.Row="1">
-                        <TextBlock x:Name="paymentOrderInfo" FontSize="12px" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    </Border>
+                    
+                    <TextBox Grid.Row="1" x:Name="paymentOrderInfo" Width="300" IsReadOnly="True" FontSize="12" 
+                             VerticalAlignment="Center" 
+                             HorizontalAlignment="Center"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+                    
                     <Border Grid.Row="2">
                         <TextBlock x:Name="paymentTotalPrice" FontSize="14px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     </Border>
@@ -242,8 +244,9 @@
             <Grid Grid.Row="1">
                 <Border Margin="10">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
-                        <Button Content="카드 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
-                        <Button Content="현금 결제" Style="{StaticResource smallBtn}" Click="Check_Payment_Click"></Button>
+                        <Button Content="카드 결제" Style="{StaticResource smallBtn}" Click="PayMenu"></Button>
+                        <Button Content="현금 결제" Style="{StaticResource smallBtn}" Click="PayMenu"></Button>
+                        <Button x:Name="btnPaymentCancel" Content="취소" Style="{StaticResource smallBtn}" Click="BtnPaymentCancel_Click"></Button>
                     </StackPanel>
                 </Border>
             </Grid>

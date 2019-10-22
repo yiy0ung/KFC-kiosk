@@ -122,14 +122,19 @@ namespace KfcKiosk
                 }
 
                 paymentSeatId.Text = selectedSeat.Id;
-                paymentTotalPrice.Text = totalPrice.ToString();
+                paymentTotalPrice.Text = "총 결재 금액 : " + totalPrice.ToString();
                 paymentOrderInfo.Text = selectedSeat.OrderInfo;
 
                 paymentAlert.Visibility = Visibility.Visible;
             }
         }
 
-        private void Check_Payment_Click(object sender, RoutedEventArgs e)
+        private void BtnPaymentCancel_Click(object sender, RoutedEventArgs e)
+        {
+            HiddenPaymentAlert();
+        }
+
+        private void PayMenu(object sender, RoutedEventArgs e) // 메뉴 결제
         {
             // 결제된 메뉴에 추가
             App.foodData.AppendPaidFoods(selectedSeat.lstFood);
@@ -138,14 +143,20 @@ namespace KfcKiosk
             App.seatData.ClearSeat(selectedSeat.Id);
             OnOrderInfoHandler("");
 
-            paymentAlert.Visibility = Visibility.Collapsed;
+            HiddenPaymentAlert();
 
             MessageBox.Show("결제 되었습니다", "결제 성공", MessageBoxButton.OK);
         }
-        
+
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {
+            HiddenPaymentAlert();
             SeatPayPage_Toggle();
+        }
+
+        private void HiddenPaymentAlert()
+        {
+            paymentAlert.Visibility = Visibility.Collapsed;
         }
 
         private void SeatPayPage_Toggle()
@@ -173,6 +184,5 @@ namespace KfcKiosk
                 SeatEvent(this, args);
             }
         }
-
     }
 }
