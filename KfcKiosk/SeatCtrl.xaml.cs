@@ -109,18 +109,28 @@ namespace KfcKiosk
         {
             if (selectedSeat.lstFood.Count == 0)
             {
-                MessageBox.Show("주문한 메뉴가 없습니다!", "WARNING");
+                MessageBox.Show("주문한 메뉴가 없습니다!", "결제 실패", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            paymentSeatId.Text = selectedSeat.Id;
+            if (MessageBox.Show("결제하시겠습니까?", "결제 확인", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                int totalPrice = 0;
+                for (int i = 0; i< selectedSeat.lstFood.Count; i++)
+                {
+                    totalPrice += selectedSeat.lstFood[i].Price;
+                }
 
-            paymentAlert.Visibility = Visibility.Visible;
+                paymentSeatId.Text = selectedSeat.Id;
+                paymentTotalPrice.Text = totalPrice.ToString();
+                paymentOrderInfo.Text = selectedSeat.OrderInfo;
+
+                paymentAlert.Visibility = Visibility.Visible;
+            }
         }
 
         private void Check_Payment_Click(object sender, RoutedEventArgs e)
         {
-
             // 결제된 메뉴에 추가
             App.foodData.AppendPaidFoods(selectedSeat.lstFood);
 
@@ -130,7 +140,7 @@ namespace KfcKiosk
 
             paymentAlert.Visibility = Visibility.Collapsed;
 
-            MessageBox.Show("결제 되었습니다", "SUCCESS");
+            MessageBox.Show("결제 되었습니다", "결제 성공", MessageBoxButton.OK);
         }
         
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)

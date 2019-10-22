@@ -209,17 +209,34 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="paymentAlert" Width="400" Height="180" Background="#cccccc" Visibility="Collapsed">
+        <Grid x:Name="paymentAlert" Width="400" Height="600" Background="#e6e6e6" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             
             <Grid Grid.Row="0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto">
-                    <TextBlock x:Name="paymentSeatId" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Text=" 결제" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                </StackPanel>
+                <Grid HorizontalAlignment="Center" Width="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="paymentSeatId" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Text=" 결제" FontSize="20px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                    <Border Grid.Row="1">
+                        <TextBlock x:Name="paymentOrderInfo" FontSize="12px" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Border>
+                    <Border Grid.Row="2">
+                        <TextBlock x:Name="paymentTotalPrice" FontSize="14px" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </Border>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
