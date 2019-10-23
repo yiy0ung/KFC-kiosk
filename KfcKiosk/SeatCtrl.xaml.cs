@@ -28,7 +28,6 @@ namespace KfcKiosk
         public delegate void OnSeatEventHandler(object sender, SeatArgs args);
         public event OnSeatEventHandler SeatEvent;
 
-
         private Seat selectedSeat { get; set; }
 
         public SeatCtrl()
@@ -177,7 +176,6 @@ namespace KfcKiosk
         private void BtnStatView_Click(object sender, RoutedEventArgs e)
         {
             SeatArgs args = new SeatArgs();
-
 
             if (SeatEvent != null)
             {
