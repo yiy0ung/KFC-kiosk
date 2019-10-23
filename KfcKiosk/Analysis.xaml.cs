@@ -18,14 +18,16 @@ using System.Windows.Threading;
 
 namespace KfcKiosk
 {
-  public class AnalysisArgs : EventArgs
-  {
+    public class AnalysisArgs : EventArgs
+    {
 
-  }
+    }
+
+
 	public partial class Analysis : UserControl
 	{
 		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
-    public event OnAnalysisEventHandler AnalysisEvent;
+        public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
@@ -36,7 +38,8 @@ namespace KfcKiosk
 		private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
 		{
 		    LoadPaidFoodPrice();
-		}
+            LoadMenusByCategory();
+        }
 
 		private void LoadPaidFoodPrice()
 		{
@@ -50,7 +53,7 @@ namespace KfcKiosk
 
 		private void refreshTotalPrice()
 		{
-			int total = App.foodData.GetTotalPrice();
+			int total = App.foodData.GetFoodTotalPrice();
 			totalPrice.Text = total.ToString();
 		}
 
@@ -68,7 +71,41 @@ namespace KfcKiosk
 				btnSeatView.Content = errorText;
 			}
 		}
-    
-	}
+
+        private void LvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvCategory.SelectedItem == null) { LoadMenusByCategory(); return; }
+
+            string category = ((ListBoxItem)(lvCategory.SelectedItem))
+                                      .Content
+                                      .ToString();
+
+            LoadMenusByCategory(category);
+        }
+
+        private void LoadMenusByCategory(string category = "All")
+        {
+            List<Food> lstMenuToShow = new List<Food>();
+
+            foreach (Food food in App.foodData.lstMenu)
+            {
+                if (food.Category.ToString().Equals(category) ||
+                    category.Equals("All"))
+                {
+                    lstMenuToShow.Add(food);
+                }
+            }
+
+            if (category == "All")
+            {
+                categoryTitle.Text = "전체 매출";
+            }
+            else
+            {
+                categoryTitle.Text = category + " 매출";
+            }
+            lvPaidFood.ItemsSource = lstMenuToShow;
+        }
+    }
 }
 
