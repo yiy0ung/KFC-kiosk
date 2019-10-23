@@ -8,7 +8,7 @@
 
     <UserControl.Resources>
 
-        <Style x:Key="categoryMenu" TargetType="Button">
+        <Style x:Key="orderClearBtn" TargetType="Button">
             <Setter Property="Background" Value="#de101d" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Padding" Value="10" />
@@ -17,7 +17,16 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
 
-        <Style x:Key="categoryItem" TargetType="ListBoxItem">
+        <Style x:Key="countBtn" TargetType="Button">
+            <Setter Property="Background" Value="#de101d" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
+        <Style x:Key="categorysItem" TargetType="ListBoxItem">
             <Setter Property="Background" Value="#de101d" />
             <Setter Property="Height" Value="50" />
             <Setter Property="BorderThickness" Value="0" />
@@ -28,15 +37,9 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
 
-        <Style x:Key="foodMenu" TargetType="StackPanel">
+        <Style x:Key="menusItem" TargetType="StackPanel">
             <Setter Property="Background" Value="#de101d" />
             <Setter Property="Margin" Value="5" />
-        </Style>
-
-        <Style x:Key="tableHead" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
 
         <Style x:Key="menuPanel" TargetType="ListView">
@@ -56,14 +59,7 @@
             <Setter Property="FontSize" Value="24" />
         </Style>
 
-        <Style x:Key="countBtn" TargetType="Button">
-            <Setter Property="Background" Value="#de101d" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+        
 
     </UserControl.Resources>
 
@@ -100,13 +96,11 @@
         <StackPanel Grid.Row="1" 
                     Grid.Column="1" 
                     Orientation="Horizontal">
-            
+
             <Image Source="Assets/Public/KFC-logo1.png" />
-            <!--<TextBlock Text="Table No. " FontWeight="Bold"/>-->
             <TextBlock x:Name="vTableId" 
                        Text="{Binding Id}" 
-                       FontWeight="Bold"
-            />
+                       FontWeight="Bold" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" 
@@ -120,7 +114,7 @@
             
             <TextBlock x:Name="vLeastOrderTime" 
                        HorizontalAlignment="Right" 
-                       Text="{Binding LeastOrderTime}"/>
+                       Text="{Binding OrderTime}" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" 
@@ -128,7 +122,7 @@
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Bottom">
             
-            <Button Style="{StaticResource categoryMenu}" 
+            <Button Style="{StaticResource orderClearBtn}" 
                     Content="전체 취소" 
                     Click="ClearBtn_Click" />
         </StackPanel>
@@ -142,15 +136,15 @@
                   BorderThickness="0">
             
             <ListViewItem Content="All" 
-                          Style="{StaticResource categoryItem}" />
+                          Style="{StaticResource categorysItem}" />
             <ListViewItem Content="Burger" 
-                          Style="{StaticResource categoryItem}" />
+                          Style="{StaticResource categorysItem}" />
             <ListViewItem Content="Chicken" 
-                          Style="{StaticResource categoryItem}" />
+                          Style="{StaticResource categorysItem}" />
             <ListViewItem Content="Drink" 
-                          Style="{StaticResource categoryItem}" />
+                          Style="{StaticResource categorysItem}" />
             <ListViewItem Content="Snack" 
-                          Style="{StaticResource categoryItem}" />
+                          Style="{StaticResource categorysItem}" />
         </ListView>
 
         <ListView x:Name="lvMenu" 
@@ -171,7 +165,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Style="{StaticResource foodMenu}">
+                    <StackPanel Style="{StaticResource menusItem}">
                         
                         <Image Source="{Binding ImgPath}" 
                                Margin="0 0 0 10" />
@@ -216,7 +210,7 @@
                                    VerticalAlignment="Center" 
                                    TextTrimming="CharacterEllipsis" />
                         <TextBlock Grid.Column="2" 
-                                   Text="{Binding Price}" 
+                                   Text="{Binding TotalPrice}" 
                                    VerticalAlignment="Center" />
                         <TextBlock Grid.Column="3" 
                                    Text="{Binding Count}" 
@@ -239,10 +233,13 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <TextBlock x:Name="vTotalPrice" 
+        <StackPanel Grid.Row="4" 
+                    Grid.Column="3">
+            <TextBlock Text="총 금액" 
+                       Style="{StaticResource totalPriceTxt}"/>
+            <TextBlock x:Name="vTotalPrice" 
                    Text="{Binding TotalPrice}" 
-                   Grid.Row="4" 
-                   Grid.Column="3" 
                    Style="{StaticResource totalPriceTxt}" />
+        </StackPanel>
     </Grid>
 </UserControl>

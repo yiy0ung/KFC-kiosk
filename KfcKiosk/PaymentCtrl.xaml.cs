@@ -31,35 +31,33 @@ namespace KfcKiosk
             this.IsVisibleChanged += PaymentCtrl_VisibleChanged;
         }
 
-        public Seat SelectedSeat { get; set; }
         private List<Food> orderList = new List<Food>();
-
         private int totalPrice = 0;
+        private string orderTime = "";
+        public delegate void OnPayEventHandler(object sender, PayArgs args);
+        public event OnPayEventHandler PayEvent;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Seat SelectedSeat { get; set; }
+
         public int TotalPrice
         {
             get => totalPrice;
-            set
-            {
+            set {
                 totalPrice = value;
                 NotifyPropertyChanged(nameof(TotalPrice));
             }
         }
-
-        private string leastOrderTime = "";
-        public string LeastOrderTime
+        
+        public string OrderTime
         {
-            get => leastOrderTime;
-            set
-            {
-                leastOrderTime = value;
-                NotifyPropertyChanged(nameof(LeastOrderTime));
+            get => orderTime;
+            set {
+                orderTime = value;
+                NotifyPropertyChanged(nameof(OrderTime));
             }
         }
 
-        public delegate void OnPayEventHandler(object sender, PayArgs args);
-        public event OnPayEventHandler PayEvent;
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -69,14 +67,15 @@ namespace KfcKiosk
         {
             this.DataContext = this;
             vTableId.DataContext = this.SelectedSeat;
+
             LoadMenusByCategory();
         }
 
         private void PaymentCtrl_VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            //가시성 체크
+            //PaymentCtrl의 가시성 체크
             if ((bool)e.NewValue)
-                LoadOrderList();
+                LoadSeatInfo();
         }
 
         private void InitLvCategory() {
@@ -84,20 +83,27 @@ namespace KfcKiosk
             lvCategory.Items.Refresh();
         }
 
-        private void LoadOrderList()
+        private bool IsSelectedSeat(string seatId)
         {
-            if (this.SelectedSeat == null) return;
+            if (this.SelectedSeat.Id.Equals(seatId))
+                return true;
+            return false;
+        }
+
+        private void LoadSeatInfo()
+        {
+            if (this.SelectedSeat == null)
+                return;
 
             vTableId.DataContext = this.SelectedSeat;
             InitLvCategory();
 
             foreach (Seat seat in App.seatData.lstSeat)
             {
-                //현재 테이블의 이름과 동일한 테이블 정보에 접근
-                if (this.SelectedSeat.Id.Equals(seat.Id))
+                if (IsSelectedSeat(seat.Id))
                 {
                     ClearTotalPrice();
-                    LeastOrderTime = seat.OrderTime;
+                    OrderTime = seat.OrderTime;
 
                     orderList = seat.lstFood;
                     foreach (Food food in orderList)
@@ -111,7 +117,7 @@ namespace KfcKiosk
 
         private void Prev_Ctrl(object sender, RoutedEventArgs e)
         {
-            UpdateOrderInfo();
+            UpdateSeatInfo();
 
             PayArgs args = new PayArgs();
             args.selectedSeat = this.SelectedSeat;
@@ -120,23 +126,20 @@ namespace KfcKiosk
                 PayEvent(this, args);
         }
 
-        private void UpdateOrderInfo()
+        private void UpdateSeatInfo()
         {
             string orderInfo = "";
-            string orderTime = "";
 
             foreach (Seat seat in App.seatData.lstSeat)
             {
-                //현재 테이블의 이름과 동일한 테이블 정보에 접근
-                if (this.SelectedSeat.Id.Equals(seat.Id))
+                if (IsSelectedSeat(seat.Id))
                 {
                     foreach (Food food in seat.lstFood)
                     {
                         orderInfo += food.Name + "*" + food.Count + "\n";
-                        orderTime = LeastOrderTime;
 
                         seat.OrderInfo = orderInfo;
-                        seat.OrderTime = orderTime;
+                        seat.OrderTime = OrderTime;
                     }
                 }
             }
@@ -173,9 +176,10 @@ namespace KfcKiosk
         {
             Food selectedMenu = ((Food)lvMenu.SelectedItem);
 
-            if (selectedMenu == null) return;
-            UpdateTime();
+            if (selectedMenu == null)
+                return;
 
+            UpdateTime();
             if (!(orderList.Contains(selectedMenu)))
             {
                 selectedMenu.Count = 1;
@@ -196,7 +200,7 @@ namespace KfcKiosk
 
         private void UpdateTime()
         {
-            LeastOrderTime = GetCurrentTime();
+            OrderTime = GetCurrentTime();
         }
 
         private void Count_Btn_Click(object sender, RoutedEventArgs e)
@@ -223,7 +227,8 @@ namespace KfcKiosk
                         menu.Count--;
                         TotalPrice -= menu.Price;
 
-                        if (menu.Count < 1) orderList.Remove(menu);
+                        if (menu.Count < 1)
+                            orderList.Remove(menu);
                     }
 
                     break;

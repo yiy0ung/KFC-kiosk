@@ -25,7 +25,7 @@ namespace KfcKiosk
 	public partial class Analysis : UserControl
 	{
 		public delegate void OnAnalysisEventHandler(object sender, AnalysisArgs args);
-    public event OnAnalysisEventHandler AnalysisEvent;
+        public event OnAnalysisEventHandler AnalysisEvent;
 
 		public Analysis()
 		{
@@ -68,7 +68,7 @@ namespace KfcKiosk
 				btnSeatView.Content = errorText;
 			}
 		}
-    
+
 	}
 }
 
