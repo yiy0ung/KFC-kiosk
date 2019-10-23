@@ -8,6 +8,13 @@ using System.Windows.Controls;
 
 namespace KfcKiosk.DataSource
 {
+    public class CategoryData
+    {
+        String Category { get; set; }
+        int count { get; set; }
+        int TotalPrice { get; set; }
+    }
+
     public class FoodDataSource
     {
         bool isLoaded = false;
@@ -239,7 +246,7 @@ namespace KfcKiosk.DataSource
             }
         }
 
-        public int GetTotalPrice()
+        public int GetFoodTotalPrice()
         {
             int totalPrice = 0;
 
@@ -251,5 +258,9 @@ namespace KfcKiosk.DataSource
             return totalPrice;
         }
 
+        //public List<CategoryData> GetCategoryTotalPrice()
+        //{
+            
+        //}
     }
 }
