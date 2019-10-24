@@ -252,7 +252,7 @@
             </Grid>
         </Grid>
         
-        <local:PaymentCtrl x:Name="paymentCtrl" Visibility="Collapsed"/>
+        <local:OrderCtrl x:Name="orderCtrl" Visibility="Collapsed"/>
         <local:Analysis x:Name="analysisCtrl" Visibility="Collapsed"/>
     </Grid>
 
