@@ -35,7 +35,7 @@ namespace KfcKiosk
             InitializeComponent();
             Dispatcher.Invoke(DispatcherPriority.Normal, new Work(PutCurrentTime));
             this.Loaded += SeatCtrl_Loaded;
-            paymentCtrl.PayEvent += PaymentCtrl_OnPaymentEvent;
+            orderCtrl.PayEvent += OrderCtrl_OnPaymentEvent;
         }
 
         private void SeatCtrl_Loaded(object sender, RoutedEventArgs e)
@@ -48,7 +48,7 @@ namespace KfcKiosk
             lvFloor.ItemsSource = App.floorData.lstFloor;
         }
 
-        private void PaymentCtrl_OnPaymentEvent(object sender, PayArgs args)
+        private void OrderCtrl_OnPaymentEvent(object sender, PayArgs args)
         {
             SeatPayPage_Toggle();
             OnOrderInfoHandler(args.selectedSeat.OrderInfo);
@@ -162,14 +162,14 @@ namespace KfcKiosk
         {
             if (seatCtrl.Visibility == Visibility.Visible)
             {
-                paymentCtrl.SelectedSeat = selectedSeat;
+                orderCtrl.SelectedSeat = selectedSeat;
                 seatCtrl.Visibility = Visibility.Collapsed;
-                paymentCtrl.Visibility = Visibility.Visible;
+                orderCtrl.Visibility = Visibility.Visible;
             }
             else
             {
                 seatCtrl.Visibility = Visibility.Visible;
-                paymentCtrl.Visibility = Visibility.Collapsed;
+                orderCtrl.Visibility = Visibility.Collapsed;
             }
         }
 

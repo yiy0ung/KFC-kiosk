@@ -22,13 +22,13 @@ namespace KfcKiosk
         public Seat selectedSeat { get; set; }
     }
 
-    public partial class PaymentCtrl : UserControl, INotifyPropertyChanged
+    public partial class OrderCtrl : UserControl, INotifyPropertyChanged
     {
-        public PaymentCtrl()
+        public OrderCtrl()
         {
             InitializeComponent();
-            this.Loaded += PaymentCtrl_Loaded;
-            this.IsVisibleChanged += PaymentCtrl_VisibleChanged;
+            this.Loaded += OrderCtrl_Loaded;
+            this.IsVisibleChanged += OrderCtrl_VisibleChanged;
         }
 
         private List<Food> lstOrder = new List<Food>();
@@ -63,7 +63,7 @@ namespace KfcKiosk
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void PaymentCtrl_Loaded(object sender, RoutedEventArgs e)
+        private void OrderCtrl_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = this;
             vTableId.DataContext = this.SelectedSeat;
@@ -71,14 +71,14 @@ namespace KfcKiosk
             LoadMenusByCategory();
         }
 
-        private void PaymentCtrl_VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OrderCtrl_VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            //PaymentCtrl의 가시성 체크
+            //OrderCtrl의 가시성 체크
             if ((bool)e.NewValue)
                 LoadSeatInfo();
         }
 
-        private void Prev_Ctrl(object sender, RoutedEventArgs e)
+        private void Prev_Btn_Click(object sender, RoutedEventArgs e)
         {
             UpdateSeatInfo();
 
@@ -143,7 +143,17 @@ namespace KfcKiosk
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            ClearOrderInfo();
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                "전체 취소하시겠습니까?", "전체 취소", 
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (messageBoxResult == MessageBoxResult.Yes) {
+
+                MessageBox.Show("전체 취소합니다", "전체 취소", 
+                    MessageBoxButton.OK ,MessageBoxImage.Information);
+
+                ClearOrderInfo();
+            }
         }
 
         private void LoadMenusByCategory(string category = "All")
@@ -218,6 +228,7 @@ namespace KfcKiosk
 
         private void CountMenu(Food menu, string op)
         {
+            UpdateOrderTime();
             switch (op)
             {
                 case "+":
@@ -264,7 +275,7 @@ namespace KfcKiosk
 
         private string CurrentTime()
         {
-            return DateTime.Now.ToString("yyyy.MM.dd HH:mm");
+            return DateTime.Now.ToString("yyyy.MM.dd HH시 mm분");
         }
 
         private void ClearOrderInfo()
