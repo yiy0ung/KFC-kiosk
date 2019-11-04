@@ -17,5 +17,6 @@ namespace KfcKiosk
         public static FloorDataSource floorData = new FloorDataSource();
         public static SeatDataSource seatData = new SeatDataSource();
         public static FoodDataSource foodData = new FoodDataSource();
+        public static AnalysisDataSource analysisData = new AnalysisDataSource();
     }
 }

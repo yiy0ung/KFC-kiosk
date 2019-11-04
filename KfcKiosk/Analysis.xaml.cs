@@ -43,7 +43,7 @@ namespace KfcKiosk
 
 		private void LoadPaidFoodPrice()
 		{
-			lvPaidFood.ItemsSource = App.foodData.lstMenu;
+			lvPaidFood.ItemsSource = App.analysisData.lsPaidFood;
 		}
 
 		public void refreshViewData()
@@ -53,7 +53,7 @@ namespace KfcKiosk
 
 		private void refreshTotalPrice()
 		{
-			int total = App.foodData.GetFoodTotalPrice();
+			int total = App.analysisData.GetFoodTotalPrice();
 			totalPrice.Text = total.ToString();
 		}
 
@@ -87,7 +87,7 @@ namespace KfcKiosk
         {
             List<Food> lstMenuToShow = new List<Food>();
 
-            foreach (Food food in App.foodData.lstMenu)
+            foreach (Food food in App.analysisData.lsPaidFood)
             {
                 if (food.Category.ToString().Equals(category) ||
                     category.Equals("All"))

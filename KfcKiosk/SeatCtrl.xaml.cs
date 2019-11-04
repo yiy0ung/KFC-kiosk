@@ -136,7 +136,7 @@ namespace KfcKiosk
         private void PayMenu(object sender, RoutedEventArgs e) // 메뉴 결제
         {
             // 결제된 메뉴에 추가
-            App.foodData.AppendPaidFoods(selectedSeat.lstFood);
+            App.analysisData.AppendPaidFoods(selectedSeat.lstFood);
 
             // selectedSeat의 메뉴 초기화
             App.seatData.ClearSeat(selectedSeat.Id);
