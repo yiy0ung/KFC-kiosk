@@ -153,7 +153,14 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Padding="20,10,0,5">
-                            <TextBlock x:Name="categoryTitle" FontSize="18px" FontWeight="Bold"></TextBlock>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" x:Name="categoryTitle" Margin="0,0,10,0" FontSize="18px" FontWeight="Bold"></TextBlock>
+                                <TextBlock Grid.Column="1" x:Name="categoryTotalPrice" FontSize="18px" FontWeight="Bold"></TextBlock>
+                            </Grid>
                         </Border>
 
                         <Grid Grid.Row="1" Margin="10">

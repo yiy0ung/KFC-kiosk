@@ -38,7 +38,6 @@ namespace KfcKiosk
 		private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
 		{
 		    LoadPaidFoodPrice();
-            LoadMenusByCategory();
         }
 
 		private void LoadPaidFoodPrice()
@@ -49,7 +48,9 @@ namespace KfcKiosk
 		public void refreshViewData()
 		{
 			refreshTotalPrice();
-		}
+            LoadMenuAnalysisByCategory();
+
+        }
 
 		private void refreshTotalPrice()
 		{
@@ -74,17 +75,18 @@ namespace KfcKiosk
 
         private void LvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lvCategory.SelectedItem == null) { LoadMenusByCategory(); return; }
+            if (lvCategory.SelectedItem == null) { LoadMenuAnalysisByCategory(); return; }
 
             string category = ((ListBoxItem)(lvCategory.SelectedItem))
                                       .Content
                                       .ToString();
 
-            LoadMenusByCategory(category);
+            LoadMenuAnalysisByCategory(category);
         }
 
-        private void LoadMenusByCategory(string category = "All")
+        private void LoadMenuAnalysisByCategory(string category = "All")
         {
+            int categoryPrice = 0;
             List<Food> lstMenuToShow = new List<Food>();
 
             foreach (Food food in App.analysisData.lsPaidFood)
@@ -93,17 +95,20 @@ namespace KfcKiosk
                     category.Equals("All"))
                 {
                     lstMenuToShow.Add(food);
+                    categoryPrice += food.TotalPrice;
                 }
             }
 
             if (category == "All")
             {
-                categoryTitle.Text = "전체 매출";
+                categoryTitle.Text = "전체 매출 :";
             }
             else
             {
-                categoryTitle.Text = category + " 매출";
+                categoryTitle.Text = category + " 매출 :";
             }
+
+            categoryTotalPrice.Text = categoryPrice.ToString() + " 원";
             lvPaidFood.ItemsSource = lstMenuToShow;
         }
     }
