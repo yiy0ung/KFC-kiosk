@@ -152,6 +152,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
+                        
                         <Border Grid.Row="0" Padding="20,10,0,5">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -172,7 +173,7 @@
                                         <TextBlock Text="판매 수량 : " Margin="0,0,8,0" FontSize="18px"></TextBlock>
                                         <TextBlock x:Name="categoryTotalCount" FontSize="18px" FontWeight="Bold"></TextBlock>
                                     </StackPanel>
-                                    <TextBlock Grid.Column="1" Text="/" Margin="10,0,10,0"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="/" Margin="10,0,10,0" FontSize="18px"></TextBlock>
                                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                                         <TextBlock Text="판매 금액 : " Margin="0,0,8,0" FontSize="18px"></TextBlock>
                                         <TextBlock x:Name="categoryTotalPrice" FontSize="18px" FontWeight="Bold"></TextBlock>
