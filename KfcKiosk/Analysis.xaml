@@ -154,12 +154,30 @@
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" Padding="20,10,0,5">
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" x:Name="categoryTitle" Margin="0,0,10,0" FontSize="18px" FontWeight="Bold"></TextBlock>
-                                <TextBlock Grid.Column="1" x:Name="categoryTotalPrice" FontSize="18px" FontWeight="Bold"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                
+                                <Grid Grid.Row="0">
+                                    <TextBlock Grid.Column="0" x:Name="categoryTitle" Margin="0,0,10,0" FontSize="22px" FontWeight="Bold"></TextBlock>
+                                </Grid>
+                                <Grid Grid.Row="1" Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="판매 수량 : " Margin="0,0,8,0" FontSize="18px"></TextBlock>
+                                        <TextBlock x:Name="categoryTotalCount" FontSize="18px" FontWeight="Bold"></TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="/" Margin="10,0,10,0"></TextBlock>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                        <TextBlock Text="판매 금액 : " Margin="0,0,8,0" FontSize="18px"></TextBlock>
+                                        <TextBlock x:Name="categoryTotalPrice" FontSize="18px" FontWeight="Bold"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Border>
 

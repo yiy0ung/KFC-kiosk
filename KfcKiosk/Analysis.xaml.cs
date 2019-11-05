@@ -87,6 +87,7 @@ namespace KfcKiosk
         private void LoadMenuAnalysisByCategory(string category = "All")
         {
             int categoryPrice = 0;
+            int categoryCount = 0;
             List<Food> lstMenuToShow = new List<Food>();
 
             foreach (Food food in App.analysisData.lsPaidFood)
@@ -96,19 +97,21 @@ namespace KfcKiosk
                 {
                     lstMenuToShow.Add(food);
                     categoryPrice += food.TotalPrice;
+                    categoryCount += food.Count;
                 }
             }
 
             if (category == "All")
             {
-                categoryTitle.Text = "전체 매출 :";
+                categoryTitle.Text = "전체 매출";
             }
             else
             {
-                categoryTitle.Text = category + " 매출 :";
+                categoryTitle.Text = category + " 매출";
             }
 
             categoryTotalPrice.Text = categoryPrice.ToString() + " 원";
+            categoryTotalCount.Text = categoryCount.ToString();
             lvPaidFood.ItemsSource = lstMenuToShow;
         }
     }
