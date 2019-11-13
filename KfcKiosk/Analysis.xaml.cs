@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Net.Sockets;
 
 namespace KfcKiosk
 {
@@ -113,6 +114,22 @@ namespace KfcKiosk
             categoryTotalPrice.Text = categoryPrice.ToString() + " 원";
             categoryTotalCount.Text = categoryCount.ToString();
             lvPaidFood.ItemsSource = lstMenuToShow;
+        }
+
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SendAnalInfo();
+        }
+
+        private void SendAnalInfo()
+        {
+            int total = 0;
+            string message = "";
+
+            total = App.analysisData.GetFoodTotalPrice();
+            message += "하루 전체 매출액: " + total.ToString();
+
+            App.tc.TCPSendAll(message);
         }
     }
 }
