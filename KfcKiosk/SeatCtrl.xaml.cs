@@ -154,6 +154,7 @@ namespace KfcKiosk
 
             int totalPrice = 0;
             string message = "";
+            string result = "";
 
             for (int i = 0; i < selectedSeat.lstFood.Count; i++)
             {
@@ -162,7 +163,14 @@ namespace KfcKiosk
             }
             
             message += selectedSeat.Id.ToString() + " " + totalPrice.ToString() + " 결제 완료";
-            App.tc.TCPSend(message);
+
+            result = App.tc.TCPSend(message);
+
+            if (result.Equals("OK")) 
+                MessageBox.Show("메시지 전송 성공");
+            else 
+                MessageBox.Show(result);
+        }
 
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
         {

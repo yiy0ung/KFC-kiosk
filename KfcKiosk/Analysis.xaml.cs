@@ -125,11 +125,17 @@ namespace KfcKiosk
         {
             int total = 0;
             string message = "";
+            string result = "";
 
             total = App.analysisData.GetFoodTotalPrice();
             message += "하루 전체 매출액: " + total.ToString();
 
-            App.tc.TCPSendAll(message);
+            result = App.tc.TCPSendAll(message);
+
+            if (result.Equals("OK"))
+                MessageBox.Show("메시지 전송 성공");
+            else
+                MessageBox.Show(result);
         }
     }
 }

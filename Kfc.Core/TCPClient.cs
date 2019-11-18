@@ -24,8 +24,15 @@ namespace Kfc.Core
             port = 80;
             id = "@2206";
 
-            tc = new TcpClient(ip, port);
-            stream = tc.GetStream();
+            //try {
+
+            //    tc = new TcpClient(ip, port);
+            //    stream = tc.GetStream();
+
+            //} catch(Exception err) {
+
+            //    return;
+            //}
         }
 
         public TCPClient(string ip, int port, string id)
@@ -34,36 +41,95 @@ namespace Kfc.Core
             this.port = port;
             this.id = id;
 
-            tc = new TcpClient(ip, port);
-            stream = tc.GetStream();
+            //try {
+
+            //    tc = new TcpClient(ip, port);
+            //    stream = tc.GetStream();
+
+            //} catch (Exception err) {
+
+            //    return;
+            //}
         }
 
-        public void TCPLogin()
+        public string ConnectTCPServer()
         {
-            data = Encoding.UTF8.GetBytes(id);
-            stream.Write(data, 0, data.Length);
+            try {
+
+                tc = new TcpClient(ip, port);
+                stream = tc.GetStream();
+
+                return "OK";
+
+            } catch(Exception err) {
+
+                throw new Exception("서버 접속 실패");
+            }
         }
 
-        public void TCPSend(string message)
+        public string TCPLogin()
         {
-            string sendMessage = id + "#";
-            sendMessage += message;
+            try {
 
-            TCPLogin();
+                try {
+                    ConnectTCPServer();
+                } catch(Exception err) {
+                    throw new Exception(err.Message);
+                }
 
-            data = Encoding.UTF8.GetBytes(sendMessage);
-            stream.Write(data, 0, data.Length);
+                data = Encoding.UTF8.GetBytes(id);
+                stream.Write(data, 0, data.Length);
+
+                return "OK";
+
+            } catch(Exception err) {
+
+                throw new Exception("로그인 실패");
+            }
         }
 
-        public void TCPSendAll(string message)
+        public string TCPSend(string message)
         {
-            string sendMessage = all + "#";
-            sendMessage += message;
+            try {
 
-            TCPLogin();
+                string sendMessage = id + "#";
+                sendMessage += message;
 
-            data = Encoding.UTF8.GetBytes(sendMessage);
-            stream.Write(data, 0, data.Length);
+                TCPLogin();
+
+                data = Encoding.UTF8.GetBytes(sendMessage);
+                stream.Write(data, 0, data.Length);
+
+                tc.Close();
+
+                return "OK";
+
+            } catch(Exception err) {
+
+                return err.Message;
+            }
+        }
+
+        public string TCPSendAll(string message)
+        {
+            try {
+
+                string sendMessage = all + "#";
+                sendMessage += message;
+
+                TCPLogin();
+
+                data = Encoding.UTF8.GetBytes(sendMessage);
+                stream.Write(data, 0, data.Length);
+
+                tc.Close();
+
+                return "OK";
+
+            } catch(Exception err) {
+
+                return err.Message;
+            }
         }
     }
 }
