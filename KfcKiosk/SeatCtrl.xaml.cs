@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Net.Sockets;
 
 namespace KfcKiosk
 {
@@ -135,6 +136,8 @@ namespace KfcKiosk
 
         private void PayMenu(object sender, RoutedEventArgs e) // 메뉴 결제
         {
+            SendPayInfo();
+
             // 결제된 메뉴에 추가
             App.analysisData.AppendPaidFoods(selectedSeat.lstFood);
 
@@ -145,6 +148,28 @@ namespace KfcKiosk
             HiddenPaymentAlert();
 
             MessageBox.Show("결제 되었습니다", "결제 성공", MessageBoxButton.OK);
+        }
+
+        private void SendPayInfo() {
+
+            int totalPrice = 0;
+            string message = "";
+            string result = "";
+
+            for (int i = 0; i < selectedSeat.lstFood.Count; i++)
+            {
+                Console.WriteLine(selectedSeat.lstFood[i].Price);
+                totalPrice += selectedSeat.lstFood[i].Price;
+            }
+            
+            message += selectedSeat.Id.ToString() + " " + totalPrice.ToString() + " 결제 완료";
+
+            result = App.tc.TCPSend(message);
+
+            if (result.Equals("OK")) 
+                MessageBox.Show("메시지 전송 성공");
+            else 
+                MessageBox.Show(result);
         }
 
         private void SeatPayBtn_Click(object sender, RoutedEventArgs e)
