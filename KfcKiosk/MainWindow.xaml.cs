@@ -51,11 +51,18 @@ namespace KfcKiosk
             App.seatData.Load();
             App.floorData.Load();
             App.foodData.Load();
+            ConnectionServer();
 
             setTimeout(() =>
             {
                 onLoadFinish();
             }, 2000);
+        }
+
+        private void ConnectionServer()
+        {
+            App.tc.ConnectTCPServer("10.80.163.138", 80);
+            App.tc.TCPLogin("@2215");
         }
 
         private void onLoadFinish()

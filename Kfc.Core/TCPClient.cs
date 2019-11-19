@@ -9,125 +9,121 @@ namespace Kfc.Core
 {
     public class TCPClient
     {
-        string ip;
-        int port;
-        string id;
-        string all = "@All";
-
         TcpClient tc;
         NetworkStream stream;
         Byte[] data;
 
-        public TCPClient()
-        {
-            ip = "10.80.163.138";
-            port = 80;
-            id = "@2206";
+        string ip;
+        int port;
+        string id;
+        string all = "@All";
+        string lastLoginDate;
+        string lastConnectDate;
 
-            //try {
-
-            //    tc = new TcpClient(ip, port);
-            //    stream = tc.GetStream();
-
-            //} catch(Exception err) {
-
-            //    return;
-            //}
+        string LastLoginDate {
+            get {
+                return lastLoginDate;
+            }
+            set
+            {
+                lastLoginDate = value;
+            }
         }
-
-        public TCPClient(string ip, int port, string id)
+        string LastConnectDate
         {
-            this.ip = ip;
-            this.port = port;
-            this.id = id;
-
-            //try {
-
-            //    tc = new TcpClient(ip, port);
-            //    stream = tc.GetStream();
-
-            //} catch (Exception err) {
-
-            //    return;
-            //}
-        }
-
-        public string ConnectTCPServer()
-        {
-            try {
-
-                tc = new TcpClient(ip, port);
-                stream = tc.GetStream();
-
-                return "OK";
-
-            } catch(Exception err) {
-
-                throw new Exception("서버 접속 실패");
+            get
+            {
+                return lastConnectDate;
+            }
+            set
+            {
+                lastConnectDate = value;
             }
         }
 
-        public string TCPLogin()
+        public TCPClient()
         {
+            // default
+            this.ip = "10.80.163.138";
+            this.port = 80;
+            this.id = "@All";
+        }
+
+        public string ConnectTCPServer(string ip, int port)
+        {
+            this.ip = ip;
+            this.port = port;
+
             try {
-
-                try {
-                    ConnectTCPServer();
-                } catch(Exception err) {
-                    throw new Exception(err.Message);
-                }
-
-                data = Encoding.UTF8.GetBytes(id);
-                stream.Write(data, 0, data.Length);
+                tc = new TcpClient(this.ip, this.port);
+                stream = tc.GetStream();
 
                 return "OK";
-
             } catch(Exception err) {
+                return "서버 접속 실패";
+            }
+        }
 
-                throw new Exception("로그인 실패");
+        public string TCPLogin(string id)
+        {
+            this.id = id;
+
+            if (tc.Connected == false)
+            {
+                string errMessage = "연결이 끊켰습니다. 다시 시도해주세요";
+                return errMessage;
+            }
+
+            try {
+                data = Encoding.UTF8.GetBytes(this.id);
+                stream.Write(data, 0, data.Length);
+
+                this.LastLoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                return "OK";
+            } catch(Exception err) {
+                return err.Message;
             }
         }
 
         public string TCPSend(string message)
         {
-            try {
+            if (tc.Connected == false)
+            {
+                string errMessage = "연결이 끊켰습니다. 다시 시도해주세요";
+                return errMessage;
+            }
 
+            try {
                 string sendMessage = id + "#";
                 sendMessage += message;
-
-                TCPLogin();
 
                 data = Encoding.UTF8.GetBytes(sendMessage);
                 stream.Write(data, 0, data.Length);
 
-                tc.Close();
-
                 return "OK";
-
             } catch(Exception err) {
-
                 return err.Message;
             }
         }
 
         public string TCPSendAll(string message)
         {
-            try {
+            if (tc.Connected == false)
+            {
+                string errMessage = "연결이 끊켰습니다. 다시 시도해주세요";
+                return errMessage;
+            }
 
+            try {
                 string sendMessage = all + "#";
                 sendMessage += message;
-
-                TCPLogin();
 
                 data = Encoding.UTF8.GetBytes(sendMessage);
                 stream.Write(data, 0, data.Length);
 
-                tc.Close();
-
                 return "OK";
-
             } catch(Exception err) {
-
                 return err.Message;
             }
         }

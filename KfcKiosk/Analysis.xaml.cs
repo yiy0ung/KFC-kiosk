@@ -116,26 +116,32 @@ namespace KfcKiosk
             lvPaidFood.ItemsSource = lstMenuToShow;
         }
 
-        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        private void BtnSaveAnalysis_Click(object sender, RoutedEventArgs e)
         {
-            SendAnalInfo();
+            int totalPrice = App.analysisData.GetFoodTotalPrice();
+            string result = SendAnalyInfo(totalPrice);
+
+            if (result.Equals("OK") == true)
+            {
+                MessageBox.Show("저장을 성공하였습니다.", "저장 성공");
+            }
+            else
+            {
+                MessageBox.Show(result, "저장 실패", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
-        private void SendAnalInfo()
+        private string SendAnalyInfo(int totalPrice)
         {
-            int total = 0;
+            int total = totalPrice;
             string message = "";
-            string result = "";
+            string response = "";
 
-            total = App.analysisData.GetFoodTotalPrice();
-            message += "하루 전체 매출액: " + total.ToString();
+            message += "하루 전체 매출액: " + total.ToString() + " 원";
 
-            result = App.tc.TCPSendAll(message);
+            response = App.tc.TCPSendAll(message);
 
-            if (result.Equals("OK"))
-                MessageBox.Show("메시지 전송 성공");
-            else
-                MessageBox.Show(result);
+            return response;
         }
     }
 }

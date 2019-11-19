@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace KfcKiosk
 {
-    public class PayArgs : EventArgs
+    public class OrderArgs : EventArgs
     {
         public Seat selectedSeat { get; set; }
     }
@@ -34,8 +34,8 @@ namespace KfcKiosk
         private List<Food> lstOrder = new List<Food>();
         private int totalPrice = 0;
         private string orderTime = "";
-        public delegate void OnPayEventHandler(object sender, PayArgs args);
-        public event OnPayEventHandler PayEvent;
+        public delegate void OnOrderEventHandler(object sender, OrderArgs args);
+        public event OnOrderEventHandler OrderEvent;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Seat SelectedSeat { get; set; }
@@ -82,11 +82,11 @@ namespace KfcKiosk
         {
             UpdateSeatInfo();
 
-            PayArgs args = new PayArgs();
+            OrderArgs args = new OrderArgs();
             args.selectedSeat = this.SelectedSeat;
 
-            if (PayEvent != null)
-                PayEvent(this, args);
+            if (OrderEvent != null)
+                OrderEvent(this, args);
         }
 
         private void LvCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)

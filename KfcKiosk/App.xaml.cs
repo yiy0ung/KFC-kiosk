@@ -19,6 +19,7 @@ namespace KfcKiosk
         public static FoodDataSource foodData = new FoodDataSource();
         public static AnalysisDataSource analysisData = new AnalysisDataSource();
 
-        public static TCPClient tc = new TCPClient("10.80.163.138", 80, "@2206");
+        public static TCPClient tc = new TCPClient();
+
     }
 }

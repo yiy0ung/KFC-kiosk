@@ -178,7 +178,7 @@
                                         <TextBlock Text="판매 금액 : " Margin="0,0,8,0" FontSize="18px"></TextBlock>
                                         <TextBlock x:Name="categoryTotalPrice" FontSize="18px" FontWeight="Bold"
                                                    Margin="0 0 13 0"></TextBlock>
-                                        <Button Content="서버 전송" Click="SendBtn_Click"/>
+                                        <Button x:Name="btnSaveAnalysis" Click="BtnSaveAnalysis_Click" Content="오늘 하루 매출량 저장"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
