@@ -104,9 +104,16 @@
 
                         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="black">
                             <Grid Margin="10">
-                                <StackPanel Orientation="Horizontal">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
                                     <TextBlock Text="⏱️ 현재 시각 : " FontSize="15" FontWeight="Bold" />
                                     <TextBlock x:Name="currentTime" FontSize="15" FontWeight="Bold" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1">
+                                    <TextBlock x:Name="displayConnectTime" FontSize="12" FontWeight="Bold" />
                                 </StackPanel>
                             </Grid>
                         </Border>
