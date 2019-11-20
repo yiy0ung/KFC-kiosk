@@ -24,9 +24,45 @@ namespace KfcKiosk
         public MainWindow()
         {
             InitializeComponent();
+
             this.Loaded += MainWindow_Loaded;
             seatCtrl.SeatEvent += MainView_Loaded;
             analysisCtrl.AnalysisEvent += MainView_Loaded;
+
+            App.client.OnConnect += Tc_OnConnect;
+            App.client.OnSocketError += Tc_OnSocketError;
+            App.client.OnLogin += Tc_OnLogin;
+        }
+
+        private const string USERID = "@2208";
+
+        private void Tc_OnLogin(object sender, EventArgs args)
+        {
+            MessageBox.Show("로그인 성공");
+
+            App.client.lastLoginDate = DateTime.Now.ToString();
+            seatCtrl.UpdateLoginDate();
+        }
+
+        private void Tc_OnConnect(object sender, EventArgs args)
+        {
+            App.client.LogIn(USERID); // 로그인
+        }
+
+        private void Tc_OnSocketError(object sender, SocketErrorArgs args)
+        {
+            MessageBox.Show(args.errMessage, "요청 실패", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            App.client.lastConnectDate = DateTime.Now.ToString();
+            seatCtrl.UpdateDisconnectDate();
+
+            MessageBoxResult result = MessageBox.Show("재연결하시겠습니까?", "재연결", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+                ConnectionServer();
+            
+            else
+                return;
         }
 
         private async void setTimeout(Action action, int timeMilisec)
@@ -59,10 +95,9 @@ namespace KfcKiosk
             }, 2000);
         }
 
-        private void ConnectionServer()
+        private void ConnectionServer() // 서버 연결 요청
         {
-            App.tc.ConnectTCPServer("10.80.163.138", 80);
-            App.tc.TCPLogin("@2215");
+            App.client.Connect();
         }
 
         private void onLoadFinish()

@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
     <Compile Include="Common\ECategory.cs" />
     <Compile Include="Floor.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Seat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCPClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

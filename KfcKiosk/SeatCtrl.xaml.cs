@@ -15,12 +15,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Net.Sockets;
+using System.ComponentModel;
 
 namespace KfcKiosk
 {
     public class SeatArgs : EventArgs
     {
-
     }
 
     public partial class SeatCtrl : UserControl
@@ -128,33 +128,23 @@ namespace KfcKiosk
         }
         private void PayMenu(object sender, RoutedEventArgs e) // 메뉴 결제
         {
-            string paymentResult = "";
+            SendPayInfo(); // 결제 정보 전송
 
-            paymentResult = SendPayInfo();
+            // 결제된 메뉴에 추가
+            App.analysisData.AppendPaidFoods(selectedSeat.lstFood);
 
-            if (paymentResult.Equals("OK") == true)
-            {
-                // 결제된 메뉴에 추가
-                App.analysisData.AppendPaidFoods(selectedSeat.lstFood);
+            // selectedSeat의 메뉴 초기화
+            App.seatData.ClearSeat(selectedSeat.Id);
+            OnOrderInfoHandler("");
 
-                // selectedSeat의 메뉴 초기화
-                App.seatData.ClearSeat(selectedSeat.Id);
-                OnOrderInfoHandler("");
+            HiddenPaymentAlert();
 
-                HiddenPaymentAlert();
-
-                MessageBox.Show("결제 되었습니다", "결제 성공", MessageBoxButton.OK);
-            }
-            else
-            {
-                MessageBox.Show(paymentResult, "결제 실패", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            MessageBox.Show("결제 되었습니다", "결제 성공", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private string SendPayInfo() {
+        private void SendPayInfo() {
             int totalPrice = 0;
             string message = "";
-            string response = ""; // 요청에 대한 응답
 
             for (int i = 0; i < selectedSeat.lstFood.Count; i++)
             {
@@ -164,9 +154,23 @@ namespace KfcKiosk
             
             message += selectedSeat.Id.ToString() + " " + totalPrice.ToString() + "원 결제 완료";
 
-            response = App.tc.TCPSend(message);
+            App.client.Send(message);
+        }
 
-            return response;
+        public void UpdateLoginDate()
+        {
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                displayConnectTime.Text = "최근 로그인 시간 " + App.client.lastLoginDate;
+            }));
+        }
+
+        public void UpdateDisconnectDate()
+        {
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                displayConnectTime.Text = "최근 서버접속종료 시간 " + App.client.lastConnectDate;
+            }));
         }
 
         private void BtnPaymentCancel_Click(object sender, RoutedEventArgs e)

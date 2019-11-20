@@ -21,9 +21,7 @@ namespace KfcKiosk
 {
     public class AnalysisArgs : EventArgs
     {
-
     }
-
 
 	public partial class Analysis : UserControl
 	{
@@ -34,14 +32,14 @@ namespace KfcKiosk
 		{
 			InitializeComponent();
             this.Loaded += AnalysisCtrl_Loaded;
-		}
+        }
 
 		private void AnalysisCtrl_Loaded(object sender, RoutedEventArgs e)
 		{
 		    LoadPaidFoodPrice();
         }
 
-		private void LoadPaidFoodPrice()
+        private void LoadPaidFoodPrice()
 		{
 			lvPaidFood.ItemsSource = App.analysisData.lsPaidFood;
 		}
@@ -119,29 +117,20 @@ namespace KfcKiosk
         private void BtnSaveAnalysis_Click(object sender, RoutedEventArgs e)
         {
             int totalPrice = App.analysisData.GetFoodTotalPrice();
-            string result = SendAnalyInfo(totalPrice);
 
-            if (result.Equals("OK") == true)
-            {
-                MessageBox.Show("저장을 성공하였습니다.", "저장 성공");
-            }
-            else
-            {
-                MessageBox.Show(result, "저장 실패", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            SendAnalyInfo(totalPrice);
+
+            MessageBox.Show("저장을 성공하였습니다.", "저장 성공", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private string SendAnalyInfo(int totalPrice)
+        private void SendAnalyInfo(int totalPrice)
         {
             int total = totalPrice;
             string message = "";
-            string response = "";
 
             message += "하루 전체 매출액: " + total.ToString() + " 원";
 
-            response = App.tc.TCPSendAll(message);
-
-            return response;
+            App.client.SendAll(message);
         }
     }
 }
